@@ -1,0 +1,683 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>Asp Net Core  Swagger自动生成接口文档 | 110laile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="110laile">
+    
+
+    
+    <meta name="description" content="Swagger是什么Swagger工具为你的Asp NetCore生成漂亮的API文档。目前社会上大部分都是一个服务端为N个客户端提供接口，往往我们需要提供一个友好的API文档，Swagger的出现，几乎使得API文档完全自动化。 开始使用Swagger 此处我们使用开发IDE为VsCode,输入 dotnet new webapi -o  SwaggerDemo 创建ASP.NET Core W">
+<meta name="keywords" content=".net core mvc,.net core webapi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Asp Net Core  Swagger自动生成接口文档">
+<meta property="og:url" content="http://yoursite.com/2019/05/29/Swagger自动生成接口文档/index.html">
+<meta property="og:site_name" content="110laile">
+<meta property="og:description" content="Swagger是什么Swagger工具为你的Asp NetCore生成漂亮的API文档。目前社会上大部分都是一个服务端为N个客户端提供接口，往往我们需要提供一个友好的API文档，Swagger的出现，几乎使得API文档完全自动化。 开始使用Swagger 此处我们使用开发IDE为VsCode,输入 dotnet new webapi -o  SwaggerDemo 创建ASP.NET Core W">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/Swagger自动生成接口文档/584421-20190313183939976-1515999841.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/Swagger自动生成接口文档/584421-20190313184843598-818407245.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/Swagger自动生成接口文档/584421-20190313185037476-1178337837.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/Swagger自动生成接口文档/584421-20190313185252629-2126964168.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/Swagger自动生成接口文档/584421-20190313190248385-1231272327.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/Swagger自动生成接口文档/584421-20190313190532311-1184619851.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/Swagger自动生成接口文档/584421-20190313190625148-969750117.png">
+<meta property="og:updated_time" content="2019-05-29T01:21:47.561Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Asp Net Core  Swagger自动生成接口文档">
+<meta name="twitter:description" content="Swagger是什么Swagger工具为你的Asp NetCore生成漂亮的API文档。目前社会上大部分都是一个服务端为N个客户端提供接口，往往我们需要提供一个友好的API文档，Swagger的出现，几乎使得API文档完全自动化。 开始使用Swagger 此处我们使用开发IDE为VsCode,输入 dotnet new webapi -o  SwaggerDemo 创建ASP.NET Core W">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/29/Swagger自动生成接口文档/584421-20190313183939976-1515999841.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="110laile" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="110laile" title="110laile"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="110laile">110laile</a></h1>
+				<h2 class="blog-motto">个人技术博客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/05/29/Swagger自动生成接口文档/" title="Asp Net Core  Swagger自动生成接口文档" itemprop="url">Asp Net Core  Swagger自动生成接口文档</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="110laile" target="_blank" itemprop="author">110laile</a>
+		
+  </p><p class="article-time">
+    <time datetime="2019-05-29T01:14:53.000Z" itemprop="datePublished"> 发表于 2019-05-29</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Swagger是什么"><span class="toc-number">1.</span> <span class="toc-text">Swagger是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始使用Swagger"><span class="toc-number">2.</span> <span class="toc-text">开始使用Swagger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加分组和注释信息"><span class="toc-number">3.</span> <span class="toc-text">添加分组和注释信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="Swagger是什么"><a href="#Swagger是什么" class="headerlink" title="Swagger是什么"></a>Swagger是什么</h2><p>Swagger工具为你的Asp Net<br>Core生成漂亮的API文档。目前社会上大部分都是一个服务端为N个客户端提供接口，往往我们需要提供一个友好的API文档，Swagger的出现，几乎使得API文档完全自动化。</p>
+<h2 id="开始使用Swagger"><a href="#开始使用Swagger" class="headerlink" title="开始使用Swagger"></a>开始使用Swagger</h2><ul>
+<li>此处我们使用开发IDE为VsCode,输入 <strong>dotnet new webapi -o  SwaggerDemo</strong> 创建ASP.NET Core Web API项目</li>
+<li><p>添加 <strong>Swashbuckle.AspNetCore包</strong> （此处不讨论包的安装方法,请自行上网搜索),在.csproj文件中会生成如下引用<br><img src="/2019/05/29/Swagger自动生成接口文档/584421-20190313183939976-1515999841.png" alt></p>
+</li>
+<li><p>打开 <strong>Startup.cs</strong> 文件,添加如下代</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">public Startup(IConfiguration configuration, IHostingEnvironment env)</span><br><span class="line">&#123;</span><br><span class="line">    Configuration = configuration;</span><br><span class="line">    this.Env = env;</span><br><span class="line">&#125;</span><br><span class="line">public IHostingEnvironment Env &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">public IConfiguration Configuration &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">public string[] docs = new[] &#123; &quot;未分类&quot; &#125;;</span><br><span class="line"></span><br><span class="line">// This method gets called by the runtime. Use this method to add services to the container.</span><br><span class="line">public void ConfigureServices(IServiceCollection services)</span><br><span class="line">&#123;</span><br><span class="line">    services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);</span><br><span class="line">    if (Env.IsDevelopment())</span><br><span class="line">    &#123;</span><br><span class="line">        services.AddSwaggerGen(options =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            foreach (var d in docs) options.SwaggerDoc(d, new Info &#123; Version = d &#125;);</span><br><span class="line">            options.DocInclusionPredicate((docName, description) =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                description.TryGetMethodInfo(out MethodInfo mi);</span><br><span class="line">                var attr = mi.DeclaringType.GetCustomAttribute&lt;ApiExplorerSettingsAttribute&gt;();</span><br><span class="line">                if (attr != null)</span><br><span class="line">                &#123;</span><br><span class="line">                    return attr.GroupName == docName;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return docName == &quot;未分类&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            var ss = options.SwaggerGeneratorOptions;</span><br><span class="line">            options.IncludeXmlComments(@&quot;E:\VsCode\C#\.Net Core\第三章 利用Swagger生成接口文档\SwaggerDemo\bin\Debug\netcoreapp2.2\SwaggerDemo.xml&quot;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">public void Configure(IApplicationBuilder app, IHostingEnvironment env)</span><br><span class="line">&#123;</span><br><span class="line">    app.UseMvc();</span><br><span class="line">    if (env.IsDevelopment())</span><br><span class="line">    &#123;</span><br><span class="line">        app.UseDeveloperExceptionPage();</span><br><span class="line">        app.UseSwagger()</span><br><span class="line">        .UseSwaggerUI(options  =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            options.DocumentTitle = &quot;Ron.liang Swagger 测试文档&quot;;</span><br><span class="line">            foreach (var item in docs)</span><br><span class="line">                options.SwaggerEndpoint($&quot;/swagger/&#123;item&#125;/swagger.json&quot;, item);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>代码中涉及到的xml需要换成自己的路径</p>
+<p><img src="/2019/05/29/Swagger自动生成接口文档/584421-20190313184843598-818407245.png" alt></p>
+<p> 为保证自己项目xml文档的生成 把.csproj文件添加以下属性</p>
+<p><img src="/2019/05/29/Swagger自动生成接口文档/584421-20190313185037476-1178337837.png" alt></p>
+<p><strong>doenet build</strong> -–&gt; <strong>dotnet run</strong> --&gt;访问<br><strong><a href="https://localhost:8090/swagger/index.html（此处需要换成自己的网站地址）" target="_blank" rel="noopener">https://localhost:8090/swagger/index.html（此处需要换成自己的网站地址）</a></strong><br>可以看到api文档已经成功生成,赶快自己点击玩玩把~~~</p>
+<p><strong><img src="/2019/05/29/Swagger自动生成接口文档/584421-20190313185252629-2126964168.png" alt></strong></p>
+<h2 id="添加分组和注释信息"><a href="#添加分组和注释信息" class="headerlink" title="添加分组和注释信息"></a>添加分组和注释信息</h2><p>上面我们用的默认API文档，实际工作中我们需要分类以及注释信息等。下面我们添加一个测试分组</p>
+<ul>
+<li>首先打开我们的api控制器（ValuesController).修改为</li>
+</ul>
+<p><img src="/2019/05/29/Swagger自动生成接口文档/584421-20190313190248385-1231272327.png" alt></p>
+<ul>
+<li>添加注释信息</li>
+</ul>
+<p><img src="/2019/05/29/Swagger自动生成接口文档/584421-20190313190532311-1184619851.png" alt></p>
+<p>再次访问</p>
+<p><img src="/2019/05/29/Swagger自动生成接口文档/584421-20190313190625148-969750117.png" alt></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>利用Swagger自动生成API文档</li>
+<li>对每个控制器进行分组</li>
+<li>自动抓取注释内容</li>
+<li>在API文档界面进行测试</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/net-core-mvc/">.net core mvc</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/net-core-mvc/">.net core mvc</a><a href="/tags/net-core-webapi/">.net core webapi</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2019/05/29/Swagger自动生成接口文档/" data-title="Asp Net Core  Swagger自动生成接口文档 | 110laile" data-tsina class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="/2019/05/29/新增功能/" title="c# 6.0 新增功能">
+  <strong>上一篇：</strong><br>
+  <span>
+  c# 6.0 新增功能</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2019/05/29/4种IO模型介绍/" title="4种IO模型介绍">
+ <strong>下一篇：</strong><br> 
+ <span>4种IO模型介绍
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Swagger是什么"><span class="toc-number">1.</span> <span class="toc-text">Swagger是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始使用Swagger"><span class="toc-number">2.</span> <span class="toc-text">开始使用Swagger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加分组和注释信息"><span class="toc-number">3.</span> <span class="toc-text">添加分组和注释信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/net-core/" title=".net core">.net core<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/net-core-mvc/" title=".net core mvc">.net core mvc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Html/" title="Html">Html<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>29</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c-6-0/" title="c#6.0">c#6.0<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/cmd/" title="cmd">cmd<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/css/" title="css">css<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/emmet/" title="emmet">emmet<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/javascript/" title="javascript">javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python-django/" title="python django">python django<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/regex/" title="regex">regex<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/visualstudio2017/" title="visualstudio2017">visualstudio2017<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/vmware/" title="vmware">vmware<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/wpf/" title="wpf">wpf<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python-django/" title="python django">python django<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MVC/" title="MVC">MVC<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/net-core/" title=".net core">.net core<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JavaSript/" title="JavaSript">JavaSript<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C/" title="C#">C#<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html/" title="html">html<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html/" title="Html">Html<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/visualstudio2017/" title="visualstudio2017">visualstudio2017<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/emmet/" title="emmet">emmet<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/大数据/" title="大数据">大数据<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Open-XML-SDK/" title="Open XML SDK">Open XML SDK<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self" frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="110laile">110laile</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

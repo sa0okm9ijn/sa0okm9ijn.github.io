@@ -1,0 +1,687 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>javascript属性描述符 | 110laile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="110laile">
+    
+
+    
+    <meta name="description" content="属性描述符（Property Descriptor）是 ES5 之后出现的概念，顾名思义，它用于描述属性应该是什么样，例如是否只读，能否枚举，能否可配置等。所有对象属性均可使用属性描述符来定义。">
+<meta name="keywords" content="JavaSript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript属性描述符">
+<meta property="og:url" content="http://yoursite.com/2019/07/12/javascript属性描述符/index.html">
+<meta property="og:site_name" content="110laile">
+<meta property="og:description" content="属性描述符（Property Descriptor）是 ES5 之后出现的概念，顾名思义，它用于描述属性应该是什么样，例如是否只读，能否枚举，能否可配置等。所有对象属性均可使用属性描述符来定义。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/07/12/javascript属性描述符/2019-07-12_112104.png">
+<meta property="og:updated_time" content="2019-07-12T06:57:47.263Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript属性描述符">
+<meta name="twitter:description" content="属性描述符（Property Descriptor）是 ES5 之后出现的概念，顾名思义，它用于描述属性应该是什么样，例如是否只读，能否枚举，能否可配置等。所有对象属性均可使用属性描述符来定义。">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/12/javascript属性描述符/2019-07-12_112104.png">
+
+    
+    <link rel="alternative" href="/atom.xml" title="110laile" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="110laile" title="110laile"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="110laile">110laile</a></h1>
+				<h2 class="blog-motto">个人技术博客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/07/12/javascript属性描述符/" title="javascript属性描述符" itemprop="url">javascript属性描述符</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="110laile" target="_blank" itemprop="author">110laile</a>
+		
+  </p><p class="article-time">
+    <time datetime="2019-07-11T22:33:31.000Z" itemprop="datePublished"> 发表于 2019-07-12</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#属性描述符"><span class="toc-number">1.</span> <span class="toc-text">属性描述符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#示例1-控制年龄的输入"><span class="toc-number">1.1.</span> <span class="toc-text">示例1 控制年龄的输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例2-圆的自由滚动"><span class="toc-number">1.2.</span> <span class="toc-text">示例2 圆的自由滚动</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h2><p>我们的在js中创建的对象平常用的的属性一般都是元数据，即metadata,描述数据的数据。<br>如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    att1:1,</span><br><span class="line">    att2:2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有时候因为特殊的需要可能需要一些特殊的对象，这个时候我们就需要属性描述符来实现了。下面我就以下两个问题展开属性描述符的概念</p>
+<p>1、为什么div.innerText就会让界面显示了内容<br>2、为什么循环div的时候拿不到innerText这个属性</p>
+<p>属性描述符（Property Descriptor）是 ES5 之后出现的概念，顾名思义，它用于描述属性应该是什么样，例如是否只读，能否枚举，能否可配置等。所有对象属性均可使用属性描述符来定义。<br>对象里目前存在的属性描述符有两种主要形式：数据描述符和存取描述符。数据描述符是一个具有值的属性，该值可能是可写的，也可能不是可写的。存取描述符是由getter-setter函数对描述的属性。描述符必须是这两种形式之一；不能同时是两者。</p>
+<p>描述符可同时具有的键值</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>configuration</th>
+<th>enumerable</th>
+<th>value</th>
+<th>writable</th>
+<th>get</th>
+<th>set</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据描述符</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>存取描述符</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>属性描述符定义属性通过defineProperty</p>
+<h3 id="示例1-控制年龄的输入"><a href="#示例1-控制年龄的输入" class="headerlink" title="示例1 控制年龄的输入"></a>示例1 控制年龄的输入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    var user = &#123;</span><br><span class="line">        name: &apos;xxx&apos;,</span><br><span class="line">        __age: 0</span><br><span class="line">    &#125;</span><br><span class="line">    //通过属性描述符定义一个属性</span><br><span class="line">    Object.defineProperty(user, &apos;age&apos;, &#123;</span><br><span class="line">        get: function () &#123;</span><br><span class="line">            return this.__age;</span><br><span class="line">        &#125;,</span><br><span class="line">        set: function (val) &#123;</span><br><span class="line">            if (val &lt; 0 || val &gt; 100) &#123;</span><br><span class="line">                throw new Error(&quot;赋值的数据&quot; + val + &quot;不在可用的范围中，可用的范围是：0~100&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            this.__age = val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    user.age=101;</span><br><span class="line">    console.log(user.age);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>我们可以控制我们年龄范围为1-99，如果设置年龄除了范围，则会抛出异常，如图<br><img src="/2019/07/12/javascript属性描述符/2019-07-12_112104.png" alt="2019-07-12_112104"></p>
+<h3 id="示例2-圆的自由滚动"><a href="#示例2-圆的自由滚动" class="headerlink" title="示例2 圆的自由滚动"></a>示例2 圆的自由滚动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    function Circle() &#123;</span><br><span class="line">        this.width = 100;</span><br><span class="line">        this.height = 100;</span><br><span class="line">        this.dom = document.querySelector(&quot;.circle&quot;);</span><br><span class="line">        this.__left = 0;</span><br><span class="line">        this.__top = 0;</span><br><span class="line">        this.xDis = 2;</span><br><span class="line">        this.yDis = 2;</span><br><span class="line">        Object.defineProperty(this, &quot;left&quot;, &#123;</span><br><span class="line">            get: function () &#123;</span><br><span class="line">                return this.__left;</span><br><span class="line">            &#125;,</span><br><span class="line">            set: function (val) &#123;</span><br><span class="line">                if (val &lt; 0) &#123;</span><br><span class="line">                    this.xDis = -this.xDis;</span><br><span class="line">                    val = 0;</span><br><span class="line">                &#125;</span><br><span class="line">                else if (val &gt; document.documentElement.clientWidth - this.width) &#123;</span><br><span class="line">                    val = document.documentElement.clientWidth - this.width;</span><br><span class="line">                    this.xDis = -this.xDis;</span><br><span class="line">                &#125;</span><br><span class="line">                this.__left = val;</span><br><span class="line">                this.dom.style.left = val + &quot;px&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        Object.defineProperty(this, &quot;top&quot;, &#123;</span><br><span class="line">            get: function () &#123;</span><br><span class="line">                return this.__top;</span><br><span class="line">            &#125;,</span><br><span class="line">            set: function (val) &#123;</span><br><span class="line">                if (val &lt; 0) &#123;</span><br><span class="line">                    this.yDis = -this.yDis;</span><br><span class="line">                    val = 0;</span><br><span class="line">                &#125; else if (val &gt; document.documentElement.clientHeight - this.height) &#123;</span><br><span class="line">                    val = document.documentElement.clientHeight - this.height;</span><br><span class="line">                    this.yDis = -this.yDis;</span><br><span class="line">                &#125;</span><br><span class="line">                this.__top = val;</span><br><span class="line">                this.dom.style.top = val + &quot;px&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    var circle = new Circle();</span><br><span class="line">    setInterval(() =&gt; &#123;</span><br><span class="line">        circle.left += circle.xDis;</span><br><span class="line">        circle.top += circle.yDis;</span><br><span class="line">    &#125;, 10);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>可以发现当我们设置了属性left之后小球就会移动，这也就解释了上面的第一个问题设置了innerText界面会刷新值的问题</p>
+<p>下面我们说说描述符的具有的键值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">Object.defineProperty(obj,&quot;abc&quot;,&#123;</span><br><span class="line">    enumerable:true,//是否可以遍历</span><br><span class="line">    value:123,//该属性的值</span><br><span class="line">    writable:false //该值是否可以重新赋值</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>由上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(Object.prototype, &quot;toString&quot;, &#123;</span><br><span class="line">    enumerable: true</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">for(var prop in Object.prototype)&#123;</span><br><span class="line">    console.log(prop);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面结果会打出打出toString,所以上面的第二个问题我们也有了结果，div的innerText属性描述符为不可遍历，所以循环打不出来</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JavaSript/">JavaSript</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2019/07/12/javascript属性描述符/" data-title="javascript属性描述符 | 110laile" data-tsina class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="/2019/07/15/Python基础语法系列5/" title="Python基础语法系列5">
+  <strong>上一篇：</strong><br>
+  <span>
+  Python基础语法系列5</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2019/06/30/Python基础语法系列4/" title="Python基础语法系列4">
+ <strong>下一篇：</strong><br> 
+ <span>Python基础语法系列4
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#属性描述符"><span class="toc-number">1.</span> <span class="toc-text">属性描述符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#示例1-控制年龄的输入"><span class="toc-number">1.1.</span> <span class="toc-text">示例1 控制年龄的输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例2-圆的自由滚动"><span class="toc-number">1.2.</span> <span class="toc-text">示例2 圆的自由滚动</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/net-core/" title=".net core">.net core<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/net-core-mvc/" title=".net core mvc">.net core mvc<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/C/" title="C#">C#<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Html/" title="Html">Html<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>29</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/c-6-0/" title="c#6.0">c#6.0<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/cmd/" title="cmd">cmd<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/css/" title="css">css<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/emmet/" title="emmet">emmet<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/git/" title="git">git<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/javascript/" title="javascript">javascript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/linux/" title="linux">linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python-django/" title="python django">python django<sup>6</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/regex/" title="regex">regex<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/visualstudio2017/" title="visualstudio2017">visualstudio2017<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/vmware/" title="vmware">vmware<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/wpf/" title="wpf">wpf<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>29</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python/" title="python">python<sup>12</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/python-django/" title="python django">python django<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MVC/" title="MVC">MVC<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/net-core/" title=".net core">.net core<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JavaSript/" title="JavaSript">JavaSript<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C/" title="C#">C#<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/html/" title="html">html<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html/" title="Html">Html<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/visualstudio2017/" title="visualstudio2017">visualstudio2017<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/css/" title="css">css<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/emmet/" title="emmet">emmet<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/大数据/" title="大数据">大数据<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Open-XML-SDK/" title="Open XML SDK">Open XML SDK<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+          <li>
+            
+            	<a href="http://wuchong.me" target="_blank" title="Jark&#39;s Blog">Jark&#39;s Blog</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self" frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=&verifier=b3593ceb&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Larry Page in Google. <br>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		<a href="http://weibo.com/2176287895" target="_blank" class="icon-weibo" title="微博"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="110laile">110laile</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
