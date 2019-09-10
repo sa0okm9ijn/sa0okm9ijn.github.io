@@ -19,14 +19,14 @@
 <meta property="og:site_name" content="110laile">
 <meta property="og:description" content=".net core 配置文件的变化">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/03/07/NET%20Core-3.配置文件了解/MVC配置文件了解/584421-20190307151832836-96437523.png">
-<meta property="og:image" content="http://yoursite.com/2019/03/07/NET%20Core-3.配置文件了解/MVC配置文件了解/584421-20190307152500145-1093395512.png">
-<meta property="og:image" content="http://yoursite.com/2019/03/07/NET%20Core-3.配置文件了解/MVC配置文件了解/584421-20190307173501496-946237566.png">
-<meta property="og:updated_time" content="2019-09-03T07:27:03.938Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/07/NET%20Core-3.配置文件了解/584421-20190307151832836-96437523.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/07/NET%20Core-3.配置文件了解/584421-20190307152500145-1093395512.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/07/NET%20Core-3.配置文件了解/584421-20190307173501496-946237566.png">
+<meta property="og:updated_time" content="2019-09-03T08:51:34.097Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content=".Net Core MVC配置文件了解">
 <meta name="twitter:description" content=".net core 配置文件的变化">
-<meta name="twitter:image" content="http://yoursite.com/2019/03/07/NET%20Core-3.配置文件了解/MVC配置文件了解/584421-20190307151832836-96437523.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/07/NET%20Core-3.配置文件了解/584421-20190307151832836-96437523.png">
 
     
     
@@ -109,17 +109,17 @@
 <p>在控制器Controllers\HomeController.cs中读取该节点作为首页的标题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public IActionResult Index([FromServices]IConfiguration cfg)</span><br><span class="line">&#123;</span><br><span class="line">      ViewData[&quot;Title&quot;]=cfg[&quot;title&quot;];</span><br><span class="line">      return View();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><strong>注意添加Microsoft.Extensions.Configuration引用</strong></p>
 <p>启动网站，浏览如下</p>
-<p><img src="/2019/03/07/NET Core-3.配置文件了解/MVC配置文件了解/584421-20190307151832836-96437523.png" alt></p>
+<p><img src="/2019/03/07/NET Core-3.配置文件了解/584421-20190307151832836-96437523.png" alt></p>
 <p>为了方便使用，我们可以把节点配置为实体对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;Logging&quot;: &#123;</span><br><span class="line">    &quot;LogLevel&quot;: &#123;</span><br><span class="line">      &quot;Default&quot;: &quot;Warning&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;AllowedHosts&quot;: &quot;*&quot;,</span><br><span class="line">  &quot;title&quot;:&quot;第一个MVC项目&quot;,</span><br><span class="line">  &quot;Person&quot;:&#123;</span><br><span class="line">    &quot;name&quot;:&quot;jack&quot;,</span><br><span class="line">    &quot;age&quot;:15</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p> 添加实体类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Person</span><br><span class="line">&#123;</span><br><span class="line">      public string name&#123;get;set;&#125;</span><br><span class="line">      public int age&#123;get;set;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>转化实体类，得到内容</p>
-<p><img src="/2019/03/07/NET Core-3.配置文件了解/MVC配置文件了解/584421-20190307152500145-1093395512.png" alt></p>
+<p><img src="/2019/03/07/NET Core-3.配置文件了解/584421-20190307152500145-1093395512.png" alt></p>
 <h2 id="2、hosting-json文件"><a href="#2、hosting-json文件" class="headerlink" title="2、hosting.json文件"></a>2、hosting.json文件</h2><p>hosting.json配置文件可以用来配置网站的端口，我们先在项目根目录下创建一个hosting.json文件，输入以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server.urls&quot;:&quot;http://127.0.0.1:8085;http://127.0.0.1:8086;&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>修改Program.cs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public static IWebHostBuilder CreateWebHostBuilder(string[] args)</span><br><span class="line">&#123;</span><br><span class="line">            var hostConfiguration = new ConfigurationBuilder().AddJsonFile(&quot;hosting.json&quot;).Build();</span><br><span class="line">            return WebHost.CreateDefaultBuilder()</span><br><span class="line">            .UseStartup&lt;Startup&gt;()</span><br><span class="line">            .UseConfiguration(hostConfiguration);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>.NET Core 工具的开发过程中实施了一项重要的设计更改，即不再支持  <em>project.json</em>  文件，而是将 .NET Core 项目转移到<br>MSBuild/csproj 格式。</p>
 <p>为了我们可以读到hosting.json配置文件，在编译的时候需要把这个文件输出到bin\debug目录下面，如此我们修改.csproj文件如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;ItemGroup&gt;</span><br><span class="line">    &lt;None Include=&quot;hosting.json&quot; CopyToOutputDirectory=&quot;Always&quot; /&gt;</span><br><span class="line">&lt;/ItemGroup&gt;</span><br></pre></td></tr></table></figure></p>
 <h5 id="删除-Properties-目录下的-launchSettings-json-文件"><a href="#删除-Properties-目录下的-launchSettings-json-文件" class="headerlink" title="删除 Properties 目录下的 launchSettings.json 文件"></a>删除 Properties 目录下的 launchSettings.json 文件</h5><p><strong>dotnet run</strong></p>
-<p><img src="/2019/03/07/NET Core-3.配置文件了解/MVC配置文件了解/584421-20190307173501496-946237566.png" alt></p>
+<p><img src="/2019/03/07/NET Core-3.配置文件了解/584421-20190307173501496-946237566.png" alt></p>
 <p>如此我们成功启动了自己定义的端口。</p>
   
 	</div>
@@ -258,6 +258,10 @@
 		  
 		
 		  
+			<li><a href="/categories/前端框架/" title="前端框架">前端框架<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
 		  
 		
@@ -291,19 +295,15 @@
 			
 		
 			
-				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/C/" title="C#">C#<sup>3</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
 			
 		
 			
@@ -315,23 +315,7 @@
 			
 		
 			
-				<li><a href="/tags/Python基础轻松学/" title="Python基础轻松学">Python基础轻松学<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Css/" title="Css">Css<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/javascript/" title="javascript">javascript<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
 			
 		
 			
@@ -339,7 +323,23 @@
 			
 		
 			
-				<li><a href="/tags/Python模块大全/" title="Python模块大全">Python模块大全<sup>1</sup></a></li>
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Promise/" title="Promise">Promise<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
 			
 		
 			
@@ -347,7 +347,11 @@
 			
 		
 			
-				<li><a href="/tags/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
+				<li><a href="/tags/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python模块大全/" title="Python模块大全">Python模块大全<sup>1</sup></a></li>
 			
 		
 		</ul>

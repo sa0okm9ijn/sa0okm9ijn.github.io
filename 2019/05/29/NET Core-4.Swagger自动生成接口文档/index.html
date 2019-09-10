@@ -19,18 +19,18 @@
 <meta property="og:site_name" content="110laile">
 <meta property="og:description" content="Swagger是什么Swagger工具为你的Asp NetCore生成漂亮的API文档。目前社会上大部分都是一个服务端为N个客户端提供接口，往往我们需要提供一个友好的API文档，Swagger的出现，几乎使得API文档完全自动化。 开始使用Swagger 此处我们使用开发IDE为VsCode,输入 dotnet new webapi -o  SwaggerDemo 创建ASP.NET Core W">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313183939976-1515999841.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313184843598-818407245.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313185037476-1178337837.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313185252629-2126964168.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313190248385-1231272327.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313190532311-1184619851.png">
-<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313190625148-969750117.png">
-<meta property="og:updated_time" content="2019-09-03T07:28:25.187Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/584421-20190313183939976-1515999841.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/584421-20190313184843598-818407245.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/584421-20190313185037476-1178337837.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/584421-20190313185252629-2126964168.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/584421-20190313190248385-1231272327.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/584421-20190313190532311-1184619851.png">
+<meta property="og:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/584421-20190313190625148-969750117.png">
+<meta property="og:updated_time" content="2019-09-03T08:52:16.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asp Net Core  Swagger自动生成接口文档">
 <meta name="twitter:description" content="Swagger是什么Swagger工具为你的Asp NetCore生成漂亮的API文档。目前社会上大部分都是一个服务端为N个客户端提供接口，往往我们需要提供一个友好的API文档，Swagger的出现，几乎使得API文档完全自动化。 开始使用Swagger 此处我们使用开发IDE为VsCode,输入 dotnet new webapi -o  SwaggerDemo 创建ASP.NET Core W">
-<meta name="twitter:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313183939976-1515999841.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/29/NET%20Core-4.Swagger自动生成接口文档/584421-20190313183939976-1515999841.png">
 
     
     
@@ -111,29 +111,29 @@
 		<h2 id="Swagger是什么"><a href="#Swagger是什么" class="headerlink" title="Swagger是什么"></a>Swagger是什么</h2><p>Swagger工具为你的Asp Net<br>Core生成漂亮的API文档。目前社会上大部分都是一个服务端为N个客户端提供接口，往往我们需要提供一个友好的API文档，Swagger的出现，几乎使得API文档完全自动化。</p>
 <h2 id="开始使用Swagger"><a href="#开始使用Swagger" class="headerlink" title="开始使用Swagger"></a>开始使用Swagger</h2><ul>
 <li>此处我们使用开发IDE为VsCode,输入 <strong>dotnet new webapi -o  SwaggerDemo</strong> 创建ASP.NET Core Web API项目</li>
-<li><p>添加 <strong>Swashbuckle.AspNetCore包</strong> （此处不讨论包的安装方法,请自行上网搜索),在.csproj文件中会生成如下引用<br><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313183939976-1515999841.png" alt></p>
+<li><p>添加 <strong>Swashbuckle.AspNetCore包</strong> （此处不讨论包的安装方法,请自行上网搜索),在.csproj文件中会生成如下引用<br><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/584421-20190313183939976-1515999841.png" alt></p>
 </li>
 <li><p>打开 <strong>Startup.cs</strong> 文件,添加如下代</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">public Startup(IConfiguration configuration, IHostingEnvironment env)</span><br><span class="line">&#123;</span><br><span class="line">    Configuration = configuration;</span><br><span class="line">    this.Env = env;</span><br><span class="line">&#125;</span><br><span class="line">public IHostingEnvironment Env &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">public IConfiguration Configuration &#123; get; &#125;</span><br><span class="line"></span><br><span class="line">public string[] docs = new[] &#123; &quot;未分类&quot; &#125;;</span><br><span class="line"></span><br><span class="line">// This method gets called by the runtime. Use this method to add services to the container.</span><br><span class="line">public void ConfigureServices(IServiceCollection services)</span><br><span class="line">&#123;</span><br><span class="line">    services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);</span><br><span class="line">    if (Env.IsDevelopment())</span><br><span class="line">    &#123;</span><br><span class="line">        services.AddSwaggerGen(options =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            foreach (var d in docs) options.SwaggerDoc(d, new Info &#123; Version = d &#125;);</span><br><span class="line">            options.DocInclusionPredicate((docName, description) =&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                description.TryGetMethodInfo(out MethodInfo mi);</span><br><span class="line">                var attr = mi.DeclaringType.GetCustomAttribute&lt;ApiExplorerSettingsAttribute&gt;();</span><br><span class="line">                if (attr != null)</span><br><span class="line">                &#123;</span><br><span class="line">                    return attr.GroupName == docName;</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    return docName == &quot;未分类&quot;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            var ss = options.SwaggerGeneratorOptions;</span><br><span class="line">            options.IncludeXmlComments(@&quot;E:\VsCode\C#\.Net Core\第三章 利用Swagger生成接口文档\SwaggerDemo\bin\Debug\netcoreapp2.2\SwaggerDemo.xml&quot;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</span><br><span class="line">public void Configure(IApplicationBuilder app, IHostingEnvironment env)</span><br><span class="line">&#123;</span><br><span class="line">    app.UseMvc();</span><br><span class="line">    if (env.IsDevelopment())</span><br><span class="line">    &#123;</span><br><span class="line">        app.UseDeveloperExceptionPage();</span><br><span class="line">        app.UseSwagger()</span><br><span class="line">        .UseSwaggerUI(options  =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            options.DocumentTitle = &quot;Ron.liang Swagger 测试文档&quot;;</span><br><span class="line">            foreach (var item in docs)</span><br><span class="line">                options.SwaggerEndpoint($&quot;/swagger/&#123;item&#125;/swagger.json&quot;, item);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>代码中涉及到的xml需要换成自己的路径</p>
-<p><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313184843598-818407245.png" alt></p>
+<p><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/584421-20190313184843598-818407245.png" alt></p>
 <p> 为保证自己项目xml文档的生成 把.csproj文件添加以下属性</p>
-<p><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313185037476-1178337837.png" alt></p>
+<p><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/584421-20190313185037476-1178337837.png" alt></p>
 <p><strong>doenet build</strong> -–&gt; <strong>dotnet run</strong> --&gt;访问<br><strong><a href="https://localhost:8090/swagger/index.html（此处需要换成自己的网站地址）" target="_blank" rel="noopener">https://localhost:8090/swagger/index.html（此处需要换成自己的网站地址）</a></strong><br>可以看到api文档已经成功生成,赶快自己点击玩玩把~~~</p>
-<p><strong><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313185252629-2126964168.png" alt></strong></p>
+<p><strong><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/584421-20190313185252629-2126964168.png" alt></strong></p>
 <h2 id="添加分组和注释信息"><a href="#添加分组和注释信息" class="headerlink" title="添加分组和注释信息"></a>添加分组和注释信息</h2><p>上面我们用的默认API文档，实际工作中我们需要分类以及注释信息等。下面我们添加一个测试分组</p>
 <ul>
 <li>首先打开我们的api控制器（ValuesController).修改为</li>
 </ul>
-<p><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313190248385-1231272327.png" alt></p>
+<p><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/584421-20190313190248385-1231272327.png" alt></p>
 <ul>
 <li>添加注释信息</li>
 </ul>
-<p><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313190532311-1184619851.png" alt></p>
+<p><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/584421-20190313190532311-1184619851.png" alt></p>
 <p>再次访问</p>
-<p><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/Swagger自动生成接口文档/584421-20190313190625148-969750117.png" alt></p>
+<p><img src="/2019/05/29/NET Core-4.Swagger自动生成接口文档/584421-20190313190625148-969750117.png" alt></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li>利用Swagger自动生成API文档</li>
 <li>对每个控制器进行分组</li>
@@ -277,6 +277,10 @@
 		  
 		
 		  
+			<li><a href="/categories/前端框架/" title="前端框架">前端框架<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
 		  
 		
@@ -310,19 +314,15 @@
 			
 		
 			
-				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/C/" title="C#">C#<sup>3</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
 			
 		
 			
@@ -334,23 +334,7 @@
 			
 		
 			
-				<li><a href="/tags/Python基础轻松学/" title="Python基础轻松学">Python基础轻松学<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Css/" title="Css">Css<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/javascript/" title="javascript">javascript<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
 			
 		
 			
@@ -358,7 +342,23 @@
 			
 		
 			
-				<li><a href="/tags/Python模块大全/" title="Python模块大全">Python模块大全<sup>1</sup></a></li>
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Promise/" title="Promise">Promise<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
 			
 		
 			
@@ -366,7 +366,11 @@
 			
 		
 			
-				<li><a href="/tags/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
+				<li><a href="/tags/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python模块大全/" title="Python模块大全">Python模块大全<sup>1</sup></a></li>
 			
 		
 		</ul>

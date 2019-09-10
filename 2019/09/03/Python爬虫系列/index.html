@@ -1,0 +1,678 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>Python爬虫系列 | 110laile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="110laile">
+    
+
+    
+    <meta name="description" content="HTTP协议之请求 重要的几个参数 method：这个字段是用来指明请求的方法是哪一种的，常用的请求方法有GET、POST  123import requestsresponse=requests.get(&apos;https://www.zhihu.com&apos;) 123456import requestsdata=&amp;#123;    &apos;username&apos;:&apos;shiyue&apos;,    &apos;password&apos;:&apos;">
+<meta name="keywords" content="Python爬虫轻松学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫系列">
+<meta property="og:url" content="http://yoursite.com/2019/09/03/Python爬虫系列/index.html">
+<meta property="og:site_name" content="110laile">
+<meta property="og:description" content="HTTP协议之请求 重要的几个参数 method：这个字段是用来指明请求的方法是哪一种的，常用的请求方法有GET、POST  123import requestsresponse=requests.get(&apos;https://www.zhihu.com&apos;) 123456import requestsdata=&amp;#123;    &apos;username&apos;:&apos;shiyue&apos;,    &apos;password&apos;:&apos;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/09/03/Python爬虫系列/2019-09-04_063054.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/03/Python爬虫系列/2019-09-04_065148.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/03/Python爬虫系列/crawler-l0-17-1-2019110.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/03/Python爬虫系列/2019-01-23-16-36-57.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/03/Python爬虫系列/crawler-l2-16-201919.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/03/Python爬虫系列/crawler-l3-9-201914.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/03/Python爬虫系列/crawler-l9-9-0-2019118.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/03/Python爬虫系列/2019-03-25-16-26-33.png">
+<meta property="og:updated_time" content="2019-09-09T03:28:31.696Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python爬虫系列">
+<meta name="twitter:description" content="HTTP协议之请求 重要的几个参数 method：这个字段是用来指明请求的方法是哪一种的，常用的请求方法有GET、POST  123import requestsresponse=requests.get(&apos;https://www.zhihu.com&apos;) 123456import requestsdata=&amp;#123;    &apos;username&apos;:&apos;shiyue&apos;,    &apos;password&apos;:&apos;">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/03/Python爬虫系列/2019-09-04_063054.png">
+
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="110laile" title="110laile"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="110laile">110laile</a></h1>
+				<h2 class="blog-motto">个人技术博客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/09/03/Python爬虫系列/" title="Python爬虫系列" itemprop="url">Python爬虫系列</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="110laile" target="_blank" itemprop="author">110laile</a>
+		
+  </p><p class="article-time">
+    <time datetime="2019-09-03T09:15:05.000Z" itemprop="datePublished"> 发表于 2019-09-03</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP协议之请求"><span class="toc-number">1.</span> <span class="toc-text">HTTP协议之请求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重要的几个参数"><span class="toc-number">1.1.</span> <span class="toc-text">重要的几个参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP协议之响应"><span class="toc-number">2.</span> <span class="toc-text">HTTP协议之响应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重要的几个参数-1"><span class="toc-number">2.1.</span> <span class="toc-text">重要的几个参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#爬虫伦理"><span class="toc-number">3.</span> <span class="toc-text">爬虫伦理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据简单处理的常用方法"><span class="toc-number">4.</span> <span class="toc-text">数据简单处理的常用方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#爬虫开始"><span class="toc-number">5.</span> <span class="toc-text">爬虫开始</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据获取"><span class="toc-number">5.1.</span> <span class="toc-text">数据获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据解析"><span class="toc-number">5.2.</span> <span class="toc-text">数据解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据保存"><span class="toc-number">5.3.</span> <span class="toc-text">数据保存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#csv"><span class="toc-number">5.3.1.</span> <span class="toc-text">csv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#excel"><span class="toc-number">5.3.2.</span> <span class="toc-text">excel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#带有cookies数据获取"><span class="toc-number">5.4.</span> <span class="toc-text">带有cookies数据获取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#存储cookie"><span class="toc-number">5.4.1.</span> <span class="toc-text">存储cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取cookie"><span class="toc-number">5.4.2.</span> <span class="toc-text">读取cookie</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#selenium"><span class="toc-number">5.5.</span> <span class="toc-text">selenium</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定时功能"><span class="toc-number">5.6.</span> <span class="toc-text">定时功能</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="HTTP协议之请求"><a href="#HTTP协议之请求" class="headerlink" title="HTTP协议之请求"></a>HTTP协议之请求</h1><p><img src="/2019/09/03/Python爬虫系列/2019-09-04_063054.png" alt></p>
+<h2 id="重要的几个参数"><a href="#重要的几个参数" class="headerlink" title="重要的几个参数"></a>重要的几个参数</h2><ol>
+<li>method：这个字段是用来指明请求的方法是哪一种的，常用的请求方法有GET、POST</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">response=requests.get(<span class="string">'https://www.zhihu.com'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">data=&#123;</span><br><span class="line">    <span class="string">'username'</span>:<span class="string">'shiyue'</span>,</span><br><span class="line">    <span class="string">'password'</span>:<span class="string">'shiyue'</span></span><br><span class="line">    &#125;</span><br><span class="line">response=requests.post(<span class="string">'https://www.wzhihu.com'</span>,data=data)</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Accept：这个字段是用来通知服务器，用户代理（浏览器等客户端）能够处理的媒体类型及媒体类型的相对优先级。可以使用type/subtype这种形式，一次可指定多种</li>
+</ol>
+<blockquote>
+<p>媒体类型。常用的媒体类型有以下几类：</p>
+</blockquote>
+<blockquote>
+<p>文本文件：text/html，text/plain，text/css，application/xhtml+xml，application/xml…</p>
+</blockquote>
+<blockquote>
+<p>图片文件：image/jpeg，image/gif，image/png…</p>
+</blockquote>
+<blockquote>
+<p>视频文件：video/mpeg，vedio/quicktime…</p>
+</blockquote>
+<blockquote>
+<p>应用程序使用的二进制文件：application/octer-stream，application/zip…</p>
+</blockquote>
+<ol start="3">
+<li>Cookie：客户端发起请求时，服务器会返回一个键值对形式的数据给浏览器，下一次浏览器再访问这个域名下的网页时，就需要携带这些键值对数据在Cookie中，用来记录用户在当前域名下的历史行为的。</li>
+</ol>
+<p>这个字段很重要，在爬虫中经常会用到，因为有的数据只有携带了Cookie才能够爬取到，所以经常会根据前次访问得到cookie数据，然后添加到下一次的访问请求头中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url=<span class="string">'https://www.baidu.com'</span></span><br><span class="line"></span><br><span class="line">headers=&#123;</span><br><span class="line">        <span class="string">'cookie'</span>:<span class="string">'PSTM=1496322685;BIDUPSID=BC36002F7DA142E6674AE290CD5A38DB;__cfduid=ddf4836dd1f1ac99eeea8ef0f140493301522406372;BAIDUID=5FA7A2B4FDDA3CECC6BE9B74FDCD00B8:FG=1;sugstore=1;BDUSS=1hvT3VoQmc5TDl5bFE1c2NjcGpOenBycnJTOEstZ0ZKcGs5UnB1dzVyU1hpYXRiQVFBQUFBJCQAAAAAAAAAAAEAAABCcYSYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJf8g1uX~INbR;BD_UPN=12314753;MCITY=‐340%3A;delPer=0;BD_CK_SAM=1;PSINO=7;BDRCVFR[Dq4jqEr7erC]=mk3SLVN4HKm;H_PS_PSSID=;BDORZ=FFFB88E999055A3F8A630C64834BD6D0;H_PS_645EC=216feJgh%2BnAm%2BJD6G3sw10RBbYN1O%2FeCJqUhgtRyZ3OuJO0EOqbXUwL8Kgf8zhqXH7RWxBnn;BDSVRTM=0;ispeed_lsm=6'</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><p>Refer:这个字段用来记录浏览器上次访问的URL，有的网站会通过请求中有没有携带这个参数来判断是不是爬虫，从而确定是否限制访问。所以有时候也需要在headers中添加上这个参数。</p>
+</li>
+<li><p>User-Agent:是用来标识请求的浏览器身份的，大部分网站都会通过请求中有没有携带这个参数来判断是不是爬虫，从而确定是否限制访问。所以有时候也需要在headers中添加上这个参数。我们要爬取的数据量比较大的时候，仅仅用一个user-agent是不够的</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests，random</span><br><span class="line"></span><br><span class="line">agent_list=[<span class="string">'Mozilla/5.0(WindowsNT10.0;WOW64)AppleWebKit/537.36(KHTML,likeGecko)Chrome/66.0.3359.139Safari/537.36'</span>,</span><br><span class="line">           <span class="string">'Mozilla/5.0(Macintosh;U;IntelMacOSX10_6_8;en‐us)AppleWebKit/534.50(KHTML,likeGecko)Version/5.1Safari/534.50'</span>,</span><br><span class="line">           <span class="string">'Mozilla/5.0(compatible;MSIE9.0;WindowsNT6.1;Trident/5.0'</span>,</span><br><span class="line">            <span class="string">'Mozilla/4.0(compatible;MSIE6.0;WindowsNT5.1)'</span></span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">headers=&#123;</span><br><span class="line">    <span class="string">'user‐agent'</span>:random.choice(agent_list)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="HTTP协议之响应"><a href="#HTTP协议之响应" class="headerlink" title="HTTP协议之响应"></a>HTTP协议之响应</h1><p><img src="/2019/09/03/Python爬虫系列/2019-09-04_065148.png" alt></p>
+<h2 id="重要的几个参数-1"><a href="#重要的几个参数-1" class="headerlink" title="重要的几个参数"></a>重要的几个参数</h2><ol>
+<li>apparent_encoding 这个属性能够很好地帮助我们确认网页源码的编码方式，避免获取到的内容乱码</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">#实现功能，避免获取到的网页源码是乱码</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">res=requests.get(<span class="string">'https://www.baidu.com'</span>)</span><br><span class="line">res.encoding=res.apparent_encoding</span><br><span class="line"><span class="comment">#这样，我们就不需要去关心获取到的网页源码的编码格式具体是什么</span></span><br><span class="line">print(res.text)</span><br><span class="line">f=open(<span class="string">'baidu.com'</span>,<span class="string">'w'</span>,encoding=res.encoding)</span><br><span class="line">f.write(res.text)</span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>cookies 该属性保存了用户的cookie值，我们有的时候可以通过获取到上一个请求的cookie，作为请求头的一个cookie参数传入到请求中</p>
+</li>
+<li><p>headers 这个属性中记录了响应头中的相关内容</p>
+</li>
+<li><p>request 这个属性记录了请求的相关信息</p>
+</li>
+<li><p>status_code 这个属性表示响应的状态码，当我们一次性爬取的url数量过多的时候，就需要用status_code来过滤掉请求失败的url</p>
+</li>
+</ol>
+<h1 id="爬虫伦理"><a href="#爬虫伦理" class="headerlink" title="爬虫伦理"></a>爬虫伦理</h1><p>服务器在通常情况下，对搜索引擎是欢迎的态度，但是，这是有条件的，而这些条件会写在Robots协议。在进行爬虫操作的时候，要有所为，也要有所不为，要用爬虫做有意义的事，不去破坏规则。</p>
+<p>查看规则如淘宝,<a href="https://www.taobao.com/robots.txt" target="_blank" rel="noopener">https://www.taobao.com/robots.txt</a></p>
+<h1 id="数据简单处理的常用方法"><a href="#数据简单处理的常用方法" class="headerlink" title="数据简单处理的常用方法"></a>数据简单处理的常用方法</h1><ol>
+<li>strip</li>
+<li>replace</li>
+<li>split</li>
+<li>startswith</li>
+<li>endswith</li>
+<li>jon</li>
+<li>列表去重</li>
+</ol>
+<h1 id="爬虫开始"><a href="#爬虫开始" class="headerlink" title="爬虫开始"></a>爬虫开始</h1><h2 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h2><p>安装requests库来获取数据</p>
+<blockquote>
+<p>pip install requsets</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests </span><br><span class="line">res = requests.get(<span class="string">'https://res.pandateacher.com/2018-12-18-10-43-07.png'</span>)</span><br></pre></td></tr></table></figure>
+<p>res是一个对象，属于requests.models.Response类</p>
+<p><img src="/2019/09/03/Python爬虫系列/crawler-l0-17-1-2019110.png" alt></p>
+<h2 id="数据解析"><a href="#数据解析" class="headerlink" title="数据解析"></a>数据解析</h2><p>安装BeautifulSoup</p>
+<blockquote>
+<p>pip install BeautifulSoup4</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="comment">#引入BS库</span></span><br><span class="line">res = requests.get(<span class="string">'https://localprod.pandateacher.com/python-manuscript/crawler-html/spider-men5.0.html'</span>) </span><br><span class="line">html = res.text</span><br><span class="line">soup = BeautifulSoup(html,<span class="string">'html.parser'</span>) <span class="comment">#把网页解析为BeautifulSoup对象</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2019/09/03/Python爬虫系列/2019-01-23-16-36-57.png" alt></p>
+<p><img src="/2019/09/03/Python爬虫系列/crawler-l2-16-201919.png" alt></p>
+<p><strong>浏览器分析标签示意</strong></p>
+<p><img src="/2019/09/03/Python爬虫系列/crawler-l3-9-201914.png" alt></p>
+<p><strong>请求头</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'origin'</span>:<span class="string">'https://y.qq.com'</span>,</span><br><span class="line">    <span class="comment"># 请求来源，本案例中其实是不需要加这个参数的，只是为了演示</span></span><br><span class="line">    <span class="string">'referer'</span>:<span class="string">'https://y.qq.com/n/yqq/song/004Z8Ihr0JIu5s.html'</span>,</span><br><span class="line">    <span class="comment"># 请求来源，携带的信息比“origin”更丰富，本案例中其实是不需要加这个参数的，只是为了演示</span></span><br><span class="line">    <span class="string">'user-agent'</span>:<span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'</span>,</span><br><span class="line">    <span class="comment"># 标记了请求从什么设备，什么浏览器上发出</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数据保存"><a href="#数据保存" class="headerlink" title="数据保存"></a>数据保存</h2><h3 id="csv"><a href="#csv" class="headerlink" title="csv"></a>csv</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="comment">#引用csv模块。</span></span><br><span class="line">csv_file = open(<span class="string">'demo.csv'</span>,<span class="string">'w'</span>,newline=<span class="string">''</span>,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="comment">#调用open()函数打开csv文件，传入参数：文件名“demo.csv”、写入模式“w”、newline=''、encoding='utf-8'。</span></span><br><span class="line">writer = csv.writer(csv_file)</span><br><span class="line"><span class="comment"># 用csv.writer()函数创建一个writer对象。</span></span><br><span class="line">writer.writerow([<span class="string">'电影'</span>,<span class="string">'豆瓣评分'</span>])</span><br><span class="line"><span class="comment">#调用writer对象的writerow()方法，可以在csv文件里写入一行文字 “电影”和“豆瓣评分”。</span></span><br><span class="line">writer.writerow([<span class="string">'银河护卫队'</span>,<span class="string">'8.0'</span>])</span><br><span class="line"><span class="comment">#在csv文件里写入一行文字 “银河护卫队”和“8.0”。</span></span><br><span class="line">writer.writerow([<span class="string">'复仇者联盟'</span>,<span class="string">'8.1'</span>])</span><br><span class="line"><span class="comment">#在csv文件里写入一行文字 “复仇者联盟”和“8.1”。</span></span><br><span class="line">csv_file.close()</span><br><span class="line"><span class="comment">#写入完成后，关闭文件就大功告成啦！</span></span><br></pre></td></tr></table></figure>
+<h3 id="excel"><a href="#excel" class="headerlink" title="excel"></a>excel</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> openpyxl </span><br><span class="line">wb=openpyxl.Workbook() </span><br><span class="line">sheet=wb.active</span><br><span class="line">sheet.title=<span class="string">'new title'</span></span><br><span class="line">sheet[<span class="string">'A1'</span>] = <span class="string">'漫威宇宙'</span></span><br><span class="line">rows= [[<span class="string">'美国队长'</span>,<span class="string">'钢铁侠'</span>,<span class="string">'蜘蛛侠'</span>],[<span class="string">'是'</span>,<span class="string">'漫威'</span>,<span class="string">'宇宙'</span>, <span class="string">'经典'</span>,<span class="string">'人物'</span>]]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> rows:</span><br><span class="line">    sheet.append(i)</span><br><span class="line">wb.save(<span class="string">'Marvel.xlsx'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="带有cookies数据获取"><a href="#带有cookies数据获取" class="headerlink" title="带有cookies数据获取"></a>带有cookies数据获取</h2><h3 id="存储cookie"><a href="#存储cookie" class="headerlink" title="存储cookie"></a>存储cookie</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests,json</span><br><span class="line"><span class="comment">#引入requests和json模块。</span></span><br><span class="line">session = requests.session()   </span><br><span class="line">url = <span class="string">' https://wordpress-edu-3autumn.localprod.oc.forchange.cn/wp-login.php'</span></span><br><span class="line">headers = &#123;</span><br><span class="line"><span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'</span></span><br><span class="line">&#125;</span><br><span class="line">data = &#123;</span><br><span class="line"><span class="string">'log'</span>: input(<span class="string">'请输入你的账号:'</span>),</span><br><span class="line"><span class="string">'pwd'</span>: input(<span class="string">'请输入你的密码:'</span>),</span><br><span class="line"><span class="string">'wp-submit'</span>: <span class="string">'登录'</span>,</span><br><span class="line"><span class="string">'redirect_to'</span>: <span class="string">'https://wordpress-edu-3autumn.localprod.oc.forchange.cn/wp-admin/'</span>,</span><br><span class="line"><span class="string">'testcookie'</span>: <span class="string">'1'</span></span><br><span class="line">&#125;</span><br><span class="line">session.post(url, headers=headers, data=data)</span><br><span class="line"></span><br><span class="line">cookies_dict = requests.utils.dict_from_cookiejar(session.cookies)</span><br><span class="line"><span class="comment">#把cookies转化成字典。</span></span><br><span class="line">print(cookies_dict)</span><br><span class="line"><span class="comment">#打印cookies_dict</span></span><br><span class="line">cookies_str = json.dumps(cookies_dict)</span><br><span class="line"><span class="comment">#调用json模块的dumps函数，把cookies从字典再转成字符串。</span></span><br><span class="line">print(cookies_str)</span><br><span class="line"><span class="comment">#打印cookies_str</span></span><br><span class="line">f = open(<span class="string">'cookies.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line"><span class="comment">#创建名为cookies.txt的文件，以写入模式写入内容。</span></span><br><span class="line">f.write(cookies_str)</span><br><span class="line"><span class="comment">#把已经转成字符串的cookies写入文件。</span></span><br><span class="line">f.close()</span><br><span class="line"><span class="comment">#关闭文件。</span></span><br></pre></td></tr></table></figure>
+<h3 id="读取cookie"><a href="#读取cookie" class="headerlink" title="读取cookie"></a>读取cookie</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests,json</span><br><span class="line">session = requests.session()</span><br><span class="line"><span class="comment">#创建会话。</span></span><br><span class="line">headers = &#123;</span><br><span class="line"><span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#添加请求头，避免被反爬虫。</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line"><span class="comment">#如果能读取到cookies文件，执行以下代码，跳过except的代码，不用登录就能发表评论。</span></span><br><span class="line">    cookies_txt = open(<span class="string">'cookies.txt'</span>, <span class="string">'r'</span>)</span><br><span class="line">    <span class="comment">#以reader读取模式，打开名为cookies.txt的文件。</span></span><br><span class="line">    cookies_dict = json.loads(cookies_txt.read())</span><br><span class="line">    <span class="comment">#调用json模块的loads函数，把字符串转成字典。</span></span><br><span class="line">    cookies = requests.utils.cookiejar_from_dict(cookies_dict)</span><br><span class="line">    <span class="comment">#把转成字典的cookies再转成cookies本来的格式。</span></span><br><span class="line">    session.cookies = cookies</span><br><span class="line">    <span class="comment">#获取cookies：就是调用requests对象（session）的cookies属性。</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">except</span> FileNotFoundError:</span><br><span class="line"><span class="comment">#如果读取不到cookies文件，程序报“FileNotFoundError”（找不到文件）的错，则执行以下代码，重新登录获取cookies，再评论。</span></span><br><span class="line"></span><br><span class="line">    url = <span class="string">' https://wordpress-edu-3autumn.localprod.oc.forchange.cn/wp-login.php'</span></span><br><span class="line">    <span class="comment">#登录的网址。</span></span><br><span class="line">    data = &#123;<span class="string">'log'</span>: input(<span class="string">'请输入你的账号:'</span>),</span><br><span class="line">            <span class="string">'pwd'</span>: input(<span class="string">'请输入你的密码:'</span>),</span><br><span class="line">            <span class="string">'wp-submit'</span>: <span class="string">'登录'</span>,</span><br><span class="line">            <span class="string">'redirect_to'</span>: <span class="string">'https://wordpress-edu-3autumn.localprod.oc.forchange.cn/wp-admin/'</span>,</span><br><span class="line">            <span class="string">'testcookie'</span>: <span class="string">'1'</span>&#125;</span><br><span class="line">    <span class="comment">#登录的参数。</span></span><br><span class="line">    session.post(url, headers=headers, data=data)</span><br><span class="line">    <span class="comment">#在会话下，用post发起登录请求。</span></span><br><span class="line"></span><br><span class="line">    cookies_dict = requests.utils.dict_from_cookiejar(session.cookies)</span><br><span class="line">    <span class="comment">#把cookies转化成字典。</span></span><br><span class="line">    cookies_str = json.dumps(cookies_dict)</span><br><span class="line">    <span class="comment">#调用json模块的dump函数，把cookies从字典再转成字符串。</span></span><br><span class="line">    f = open(<span class="string">'cookies.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line">    <span class="comment">#创建名为cookies.txt的文件，以写入模式写入内容</span></span><br><span class="line">    f.write(cookies_str)</span><br><span class="line">    <span class="comment">#把已经转成字符串的cookies写入文件</span></span><br><span class="line">    f.close()</span><br><span class="line">    <span class="comment">#关闭文件</span></span><br></pre></td></tr></table></figure>
+<h2 id="selenium"><a href="#selenium" class="headerlink" title="selenium"></a>selenium</h2><p>selenium它可以用几行代码，控制浏览器，做出自动打开、输入、点击等操作，就像是有一个真正的用户在操作一样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 本地Chrome浏览器设置方法</span></span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver <span class="comment">#从selenium库中调用webdriver模块</span></span><br><span class="line">driver = webdriver.Chrome() <span class="comment"># 设置引擎为Chrome，真实地打开一个Chrome浏览器</span></span><br></pre></td></tr></table></figure>
+<p><img src="/2019/09/03/Python爬虫系列/crawler-l9-9-0-2019118.png" alt></p>
+<p><img src="/2019/09/03/Python爬虫系列/2019-03-25-16-26-33.png" alt></p>
+<p><strong>操作浏览器</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.send_keys() <span class="comment"># 模拟按键输入，自动填写表单</span></span><br><span class="line">.click() <span class="comment"># 点击元素</span></span><br></pre></td></tr></table></figure>
+<h2 id="定时功能"><a href="#定时功能" class="headerlink" title="定时功能"></a>定时功能</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> schedule</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="comment">#引入schedule和time</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">job</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"I'm working..."</span>)</span><br><span class="line"><span class="comment">#定义一个叫job的函数，函数的功能是打印'I'm working...'</span></span><br><span class="line"></span><br><span class="line">schedule.every(<span class="number">10</span>).minutes.do(job)       <span class="comment">#部署每10分钟执行一次job()函数的任务</span></span><br><span class="line">schedule.every().hour.do(job)            <span class="comment">#部署每×小时执行一次job()函数的任务</span></span><br><span class="line">schedule.every().day.at(<span class="string">"10:30"</span>).do(job) <span class="comment">#部署在每天的10:30执行job()函数的任务</span></span><br><span class="line">schedule.every().monday.do(job)          <span class="comment">#部署每个星期一执行job()函数的任务</span></span><br><span class="line">schedule.every().wednesday.at(<span class="string">"13:15"</span>).do(job)<span class="comment">#部署每周三的13：15执行函数的任务</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    schedule.run_pending()</span><br><span class="line">    time.sleep(<span class="number">1</span>)    </span><br><span class="line"><span class="comment">#13-15都是检查部署的情况，如果任务准备就绪，就开始执行任务。</span></span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Python/">Python</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Python爬虫轻松学/">Python爬虫轻松学</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2019/09/03/Python爬虫系列/" data-title="Python爬虫系列 | 110laile" data-tsina class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="/2019/09/09/Vue基础/" title="Vue基础">
+  <strong>上一篇：</strong><br>
+  <span>
+  Vue基础</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2019/09/02/javascript基础/" title="javascript基础">
+ <strong>下一篇：</strong><br> 
+ <span>javascript基础
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP协议之请求"><span class="toc-number">1.</span> <span class="toc-text">HTTP协议之请求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重要的几个参数"><span class="toc-number">1.1.</span> <span class="toc-text">重要的几个参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP协议之响应"><span class="toc-number">2.</span> <span class="toc-text">HTTP协议之响应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#重要的几个参数-1"><span class="toc-number">2.1.</span> <span class="toc-text">重要的几个参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#爬虫伦理"><span class="toc-number">3.</span> <span class="toc-text">爬虫伦理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据简单处理的常用方法"><span class="toc-number">4.</span> <span class="toc-text">数据简单处理的常用方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#爬虫开始"><span class="toc-number">5.</span> <span class="toc-text">爬虫开始</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据获取"><span class="toc-number">5.1.</span> <span class="toc-text">数据获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据解析"><span class="toc-number">5.2.</span> <span class="toc-text">数据解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据保存"><span class="toc-number">5.3.</span> <span class="toc-text">数据保存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#csv"><span class="toc-number">5.3.1.</span> <span class="toc-text">csv</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#excel"><span class="toc-number">5.3.2.</span> <span class="toc-text">excel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#带有cookies数据获取"><span class="toc-number">5.4.</span> <span class="toc-text">带有cookies数据获取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#存储cookie"><span class="toc-number">5.4.1.</span> <span class="toc-text">存储cookie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取cookie"><span class="toc-number">5.4.2.</span> <span class="toc-text">读取cookie</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#selenium"><span class="toc-number">5.5.</span> <span class="toc-text">selenium</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#定时功能"><span class="toc-number">5.6.</span> <span class="toc-text">定时功能</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/NET/" title=".NET">.NET<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/HTML/" title="HTML">HTML<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>31</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Regex/" title="Regex">Regex<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Wpf/" title="Wpf">Wpf<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端框架/" title="前端框架">前端框架<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>32</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python-django/" title="Python django">Python django<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html/" title="Html">Html<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NET-Core简易入门/" title=".NET Core简易入门">.NET Core简易入门<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C/" title="C#">C#<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/javascript/" title="javascript">javascript<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Promise/" title="Promise">Promise<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Wpf/" title="Wpf">Wpf<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python模块大全/" title="Python模块大全">Python模块大全<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,110laile. <br>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="110laile">110laile</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
