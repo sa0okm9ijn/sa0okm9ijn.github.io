@@ -1,0 +1,624 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>Jascript数组扩展 | 110laile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="110laile">
+    
+
+    
+    <meta name="description" content="数组方法的自定义实现">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jascript数组扩展">
+<meta property="og:url" content="http://yoursite.com/2019/09/24/Jascript数组扩展/index.html">
+<meta property="og:site_name" content="110laile">
+<meta property="og:description" content="数组方法的自定义实现">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-27T03:53:17.174Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jascript数组扩展">
+<meta name="twitter:description" content="数组方法的自定义实现">
+
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="110laile" title="110laile"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="110laile">110laile</a></h1>
+				<h2 class="blog-motto">个人技术博客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/09/24/Jascript数组扩展/" title="Jascript数组扩展" itemprop="url">Jascript数组扩展</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="110laile" target="_blank" itemprop="author">110laile</a>
+		
+  </p><p class="article-time">
+    <time datetime="2019-09-24T09:39:32.000Z" itemprop="datePublished"> 发表于 2019-09-24</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#foreach"><span class="toc-number">1.</span> <span class="toc-text">foreach</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#filter"><span class="toc-number">2.</span> <span class="toc-text">filter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map"><span class="toc-number">3.</span> <span class="toc-text">map</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#every"><span class="toc-number">4.</span> <span class="toc-text">every</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#some"><span class="toc-number">5.</span> <span class="toc-text">some</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#reduce"><span class="toc-number">6.</span> <span class="toc-text">reduce</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#reduceRight"><span class="toc-number">7.</span> <span class="toc-text">reduceRight</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组算法题"><span class="toc-number">8.</span> <span class="toc-text">数组算法题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础练习题"><span class="toc-number">9.</span> <span class="toc-text">基础练习题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#web标准是什么"><span class="toc-number">9.1.</span> <span class="toc-text">web标准是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#浏览器中body默认的margin"><span class="toc-number">9.2.</span> <span class="toc-text">浏览器中body默认的margin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#元素居中"><span class="toc-number">9.3.</span> <span class="toc-text">元素居中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#typeof-返回的结果"><span class="toc-number">9.4.</span> <span class="toc-text">typeof 返回的结果</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h1><p>数组的每个元素执行一次提供的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = [&#123; <span class="attr">name</span>: <span class="string">'王港'</span>, <span class="attr">age</span>: <span class="number">18</span> &#125;,</span><br><span class="line">&#123; <span class="attr">name</span>: <span class="string">'刘莹莹'</span>, <span class="attr">age</span>: <span class="number">23</span> &#125;,</span><br><span class="line">&#123; <span class="attr">name</span>: <span class="string">'王秀莹'</span>, <span class="attr">age</span>: <span class="number">25</span> &#125;];</span><br><span class="line"></span><br><span class="line">person.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">ele, index, self</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//ele:数组每一项，index:数组索引，数组本身</span></span><br><span class="line">    <span class="built_in">console</span>.log(ele, index, self);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.myForEach = <span class="function"><span class="keyword">function</span> (<span class="params">func</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//this指向调用者(数组)</span></span><br><span class="line">    <span class="keyword">var</span> _arr = <span class="keyword">this</span>, len = <span class="keyword">this</span>.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="comment">//arguments[1]指向调用函数中dethis指向谁</span></span><br><span class="line">        func.apply(<span class="built_in">arguments</span>[<span class="number">1</span>] || <span class="built_in">window</span>, [_arr[i], i, _arr])</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">person.myForEach(<span class="function"><span class="keyword">function</span> (<span class="params">ele, index, self</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//this指向&#123;"sex": '男'&#125;</span></span><br><span class="line">    <span class="built_in">console</span>.log(ele, index, self, <span class="keyword">this</span>)</span><br><span class="line">&#125;, &#123; <span class="string">"sex"</span>: <span class="string">'男'</span> &#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h1><p>创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newArr = person.filter(<span class="function"><span class="keyword">function</span> (<span class="params">ele, index, self</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">return</span> ele.age &gt; <span class="number">23</span>;</span><br><span class="line">&#125;, &#123; <span class="attr">dom</span>: <span class="string">'dom'</span> &#125;)</span><br><span class="line"><span class="comment">//此处的数组项 指向的还是同一块内存地址，改变一个另外一个也会修改 可通过克隆的方式创建没有关系的独立数组</span></span><br><span class="line">newArr[<span class="number">0</span>].name = <span class="string">'123'</span>  </span><br><span class="line"><span class="built_in">console</span>.log(newArr);</span><br><span class="line"><span class="built_in">console</span>.log(person)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.myFilter = <span class="function"><span class="keyword">function</span> (<span class="params">func</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _arr = <span class="keyword">this</span>, len = <span class="keyword">this</span>.length, newArr = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        func.apply(<span class="built_in">arguments</span>[<span class="number">1</span>] || <span class="built_in">window</span>, [_arr[i], i, _arr]) ? newArr.push(_arr[i]) : <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newArr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="map"><a href="#map" class="headerlink" title="map"></a>map</h1><p>方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> newarr = person.map(<span class="function"><span class="keyword">function</span> (<span class="params">ele, index, self</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(ele, index, self, <span class="keyword">this</span>);</span><br><span class="line">    ele.age = ele.age * <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> ele;</span><br><span class="line">&#125;, &#123; <span class="attr">dom</span>: <span class="string">'dom'</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//此处的数组 newarr还是指向person</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.myMap = <span class="function"><span class="keyword">function</span> (<span class="params">func</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _arr = <span class="keyword">this</span>, len = <span class="keyword">this</span>.length, newarr = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        newarr.push(func.apply(<span class="built_in">arguments</span>[<span class="number">1</span>] || <span class="built_in">window</span>, [_arr[i], i, _arr]))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newarr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="every"><a href="#every" class="headerlink" title="every"></a>every</h1><p>方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = person.every(<span class="function"><span class="keyword">function</span> (<span class="params">ele, index, self</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(ele, index, self, <span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">return</span> ele.age &gt; <span class="number">23</span>;</span><br><span class="line">&#125;, &#123; <span class="attr">dom</span>: <span class="string">'dom'</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.myEvery = <span class="function"><span class="keyword">function</span> (<span class="params">func</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _arr = <span class="keyword">this</span>, len = <span class="keyword">this</span>.length, flag = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!func.apply(<span class="built_in">arguments</span>[<span class="number">1</span>] || <span class="built_in">window</span>, [_arr[i], i, _arr])) &#123;</span><br><span class="line">            flag = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> flag</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="some"><a href="#some" class="headerlink" title="some"></a>some</h1><p>方法测试数组中是不是有元素通过了被提供的函数测试。它返回的是一个Boolean类型的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = person.some(<span class="function"><span class="keyword">function</span> (<span class="params">ele, index, self</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(ele, index, self);</span><br><span class="line">    <span class="keyword">return</span> ele.age &gt; <span class="number">30</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.mySome = <span class="function"><span class="keyword">function</span> (<span class="params">func</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _arr = <span class="keyword">this</span>, len = <span class="keyword">this</span>.length; flag = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (func.apply(<span class="built_in">arguments</span>[<span class="number">1</span>] || <span class="built_in">window</span>, [_arr[i], i, <span class="keyword">this</span>])) &#123;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> flag</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h1><p>方法对数组中的每个元素执行一个由您提供的reducer函数(从左向右执行))，将其结果汇总为单个返回值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cookie = <span class="string">`BIDUPSID=FEFF6EF48A14D731758822E71EDAB720; </span></span><br><span class="line"><span class="string">                PSTM=1567387707; </span></span><br><span class="line"><span class="string">                BD_UPN=12314753; </span></span><br><span class="line"><span class="string">                BAIDUID=85C615F1F00B0D7631759024DBD84EF8:FG=1; </span></span><br><span class="line"><span class="string">                H_WISE_SIDS=135670_124610_136262_114552_135964_135926_128070_120173_135727_132911_131247_122159_132378_131517_118884_118866_118851_118818_118804_107315_133352_129654_136193_132250_124632_131861_128968_135307_135812_132551_135433_135873_134046_134751_131423_136164_135464_110085_134253_134154_127969_131755_131951_135624_135461_127416_135035_134652_132764_135834_136259_136076; </span></span><br><span class="line"><span class="string">                MCITY=-233%3A; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; </span></span><br><span class="line"><span class="string">                BD_HOME=1; </span></span><br><span class="line"><span class="string">                H_PS_PSSID=1432_21085_29523_29720_29568_29221_26350; </span></span><br><span class="line"><span class="string">                BDRCVFR[feWj1Vr5u3D]=I67x6TjHwwYf0; </span></span><br><span class="line"><span class="string">                delPer=0; </span></span><br><span class="line"><span class="string">                BD_CK_SAM=1; </span></span><br><span class="line"><span class="string">                PSINO=1; </span></span><br><span class="line"><span class="string">                sugstore=1`</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseCookie</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = &#123;&#125;, arr = <span class="literal">null</span>;</span><br><span class="line">    arr = str.split(<span class="string">';'</span>);</span><br><span class="line">    arr.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">prev, icur, index, self</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> icurArr = icur.split(<span class="string">'='</span>);</span><br><span class="line">        prev[icurArr[<span class="number">0</span>]] = icurArr[<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">return</span> prev</span><br><span class="line">    &#125;, obj)</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.prototype.myReduce = <span class="function"><span class="keyword">function</span> (<span class="params">func</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _arr = <span class="keyword">this</span>, len = <span class="keyword">this</span>.length, nextValue = <span class="built_in">arguments</span>[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        nextValue = func.apply(<span class="built_in">arguments</span>[<span class="number">2</span>] || <span class="built_in">window</span>, [nextValue, _arr[i], _arr])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nextValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="reduceRight"><a href="#reduceRight" class="headerlink" title="reduceRight"></a>reduceRight</h1><p>方法对数组中的每个元素执行一个由您提供的reducer函数(从左向右执行))，将其结果汇总为单个返回值。</p>
+<p>和reduce相反 参考reduce实现</p>
+<h1 id="数组算法题"><a href="#数组算法题" class="headerlink" title="数组算法题"></a>数组算法题</h1><ol>
+<li>对于字符串”abc1234”变成4321cba</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//转换成数组--反转--在拼接字符串</span></span><br><span class="line"><span class="keyword">var</span> str=<span class="string">'123abc'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str.split(<span class="string">''</span>).reverse().join(<span class="string">''</span>))</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>查找有序数组中的某向,并返回索引(二分查找(binary search))</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">binarySearch</span>(<span class="params">arr, element</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> minIndex = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> maxIndex = arr.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> testElement;</span><br><span class="line">    <span class="keyword">while</span> (minIndex &lt;= maxIndex) &#123;</span><br><span class="line">        <span class="keyword">var</span> middleIndex = <span class="built_in">Math</span>.floor((minIndex + maxIndex) / <span class="number">2</span>)        </span><br><span class="line">        testElement = arr[middleIndex]</span><br><span class="line">        <span class="comment">//所要查找的值在右边</span></span><br><span class="line">        <span class="keyword">if</span> (testElement &lt; element) &#123;</span><br><span class="line">            minIndex = middleIndex + <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (testElement &gt; element) &#123;</span><br><span class="line">            maxIndex = middleIndex - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> middleIndex;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>判断数组是否是对称数组（从左向右读和从右向左读，都是一致的，称为对称数组）</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对称数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">symmetryArr</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> minIndex = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">var</span> maxIndex = arr.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (minIndex &lt;= maxIndex) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[minIndex++] !== arr[maxIndex--]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>查询字串首次出现的位置，如：原串abcbcxyxyz 字串为cx 结果为4</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"abefbaxzbc"</span>;</span><br><span class="line"><span class="keyword">var</span> subStr = <span class="string">"c"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//indexOf 内部实现</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getIndex</span>(<span class="params">str, subStr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> subStrLen = subStr.length;</span><br><span class="line">    <span class="keyword">var</span> len = str.length - subStrLen;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;= len; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; subStrLen; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (subStr[j] != str[i + j]) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (j == subStrLen - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>计算数组中，最大连续增长子序列的长度，如[1,2,3,4,1,2,3,4,5,,1,2,3] 结果为5</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">10</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">22</span>, <span class="number">32</span>, <span class="number">50</span>, <span class="number">80</span>];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getMaxLength</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> addNum = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> len = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[i] &gt; arr[i - <span class="number">1</span>]) &#123;</span><br><span class="line">            addNum++;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            len = addNum &gt; len ? addNum : len;</span><br><span class="line">            addNum = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    len = addNum &gt; len ? addNum : len;</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(getMaxLength(arr));</span><br></pre></td></tr></table></figure>
+<h1 id="基础练习题"><a href="#基础练习题" class="headerlink" title="基础练习题"></a>基础练习题</h1><h2 id="web标准是什么"><a href="#web标准是什么" class="headerlink" title="web标准是什么"></a>web标准是什么</h2><p>Web标准，使得Web开发更加容易。</p>
+<p>简单来说web标准可以分为结构（html），表现（css）和行为（JavaScript）。</p>
+<p>结构主要是有html标签组成，在页面body里面我们写入的标签都是为了页面的结构。 标准由万维网联盟(W3C)制定 <a href="https://www.w3.org/html/" target="_blank" rel="noopener">https://www.w3.org/html/</a></p>
+<p>表现即是css样式表。通过css可以让结构标签变得更具美感。 标准由万维网联盟(W3C)制定  <a href="https://www.w3.org/TR/CSS22/" target="_blank" rel="noopener">https://www.w3.org/TR/CSS22/</a></p>
+<p>行为指的是页面与用户具有一定的交互，主要是有js组成。标准由ECMA制定 <a href="https://www.ecma-international.org/" target="_blank" rel="noopener">https://www.ecma-international.org/</a></p>
+<h2 id="浏览器中body默认的margin"><a href="#浏览器中body默认的margin" class="headerlink" title="浏览器中body默认的margin"></a>浏览器中body默认的margin</h2><p>标准是8px,ie浏览器7及以下 上下15px左右10px</p>
+<h2 id="元素居中"><a href="#元素居中" class="headerlink" title="元素居中"></a>元素居中</h2><ol>
+<li>如果宽高都为auto的绝对定位元素,通过left和right可以调整其宽度</li>
+<li>如果宽高都为auto的绝对定位元素,通过top和bottom可以调整其高度</li>
+</ol>
+<h2 id="typeof-返回的结果"><a href="#typeof-返回的结果" class="headerlink" title="typeof 返回的结果"></a>typeof 返回的结果</h2><p>“number”、”string”、”object”、”function”、”undefined”、”boolean”</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JavaScript/">JavaScript</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2019/09/24/Jascript数组扩展/" data-title="Jascript数组扩展 | 110laile" data-tsina class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="/2019/09/30/javascript自定义方法封装/" title="javascript自定义方法封装">
+  <strong>上一篇：</strong><br>
+  <span>
+  javascript自定义方法封装</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2019/09/19/Javascript专题系列/" title="Javascript专题系列">
+ <strong>下一篇：</strong><br> 
+ <span>Javascript专题系列
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#foreach"><span class="toc-number">1.</span> <span class="toc-text">foreach</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#filter"><span class="toc-number">2.</span> <span class="toc-text">filter</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map"><span class="toc-number">3.</span> <span class="toc-text">map</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#every"><span class="toc-number">4.</span> <span class="toc-text">every</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#some"><span class="toc-number">5.</span> <span class="toc-text">some</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#reduce"><span class="toc-number">6.</span> <span class="toc-text">reduce</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#reduceRight"><span class="toc-number">7.</span> <span class="toc-text">reduceRight</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数组算法题"><span class="toc-number">8.</span> <span class="toc-text">数组算法题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基础练习题"><span class="toc-number">9.</span> <span class="toc-text">基础练习题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#web标准是什么"><span class="toc-number">9.1.</span> <span class="toc-text">web标准是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#浏览器中body默认的margin"><span class="toc-number">9.2.</span> <span class="toc-text">浏览器中body默认的margin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#元素居中"><span class="toc-number">9.3.</span> <span class="toc-text">元素居中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#typeof-返回的结果"><span class="toc-number">9.4.</span> <span class="toc-text">typeof 返回的结果</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/NET/" title=".NET">.NET<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/HTML/" title="HTML">HTML<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>34</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>12</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Regex/" title="Regex">Regex<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Wpf/" title="Wpf">Wpf<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端框架/" title="前端框架">前端框架<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>35</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python-django/" title="Python django">Python django<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html/" title="Html">Html<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NET-Core简易入门/" title=".NET Core简易入门">.NET Core简易入门<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C/" title="C#">C#<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/函数柯里化/" title="函数柯里化">函数柯里化<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Promise/" title="Promise">Promise<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python模块大全/" title="Python模块大全">Python模块大全<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Wpf/" title="Wpf">Wpf<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VsCode/" title="VsCode">VsCode<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,110laile. <br>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="110laile">110laile</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
