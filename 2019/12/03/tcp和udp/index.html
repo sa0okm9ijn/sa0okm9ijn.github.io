@@ -1,0 +1,581 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>tcp和udp | 110laile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="110laile">
+    
+
+    
+    <meta name="description" content="TCPTCP协议就像打电话，A给B打电话，B肯定要先接通电话才能听到A的讲话，这样就能够可靠地把A说的话听清楚，是一对一的关系 端口一台计算机只有一个连接到网络的物理端口（就是网线接口），一个端口怎么可能够用呢，明显会撞车，所以呢这个物理端口负责接收或者发送数据，而网络程序设计中的端口并非真实存在的，只是假想出来的连接装置。端口被规定为一个0 ~ 65535之间的整数，0 ~ 1023有其他用途，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tcp和udp">
+<meta property="og:url" content="http://yoursite.com/2019/12/03/tcp和udp/index.html">
+<meta property="og:site_name" content="110laile">
+<meta property="og:description" content="TCPTCP协议就像打电话，A给B打电话，B肯定要先接通电话才能听到A的讲话，这样就能够可靠地把A说的话听清楚，是一对一的关系 端口一台计算机只有一个连接到网络的物理端口（就是网线接口），一个端口怎么可能够用呢，明显会撞车，所以呢这个物理端口负责接收或者发送数据，而网络程序设计中的端口并非真实存在的，只是假想出来的连接装置。端口被规定为一个0 ~ 65535之间的整数，0 ~ 1023有其他用途，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-04T11:06:37.429Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tcp和udp">
+<meta name="twitter:description" content="TCPTCP协议就像打电话，A给B打电话，B肯定要先接通电话才能听到A的讲话，这样就能够可靠地把A说的话听清楚，是一对一的关系 端口一台计算机只有一个连接到网络的物理端口（就是网线接口），一个端口怎么可能够用呢，明显会撞车，所以呢这个物理端口负责接收或者发送数据，而网络程序设计中的端口并非真实存在的，只是假想出来的连接装置。端口被规定为一个0 ~ 65535之间的整数，0 ~ 1023有其他用途，">
+
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="110laile" title="110laile"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="110laile">110laile</a></h1>
+				<h2 class="blog-motto">个人技术博客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/12/03/tcp和udp/" title="tcp和udp" itemprop="url">tcp和udp</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="110laile" target="_blank" itemprop="author">110laile</a>
+		
+  </p><p class="article-time">
+    <time datetime="2019-12-03T14:44:30.000Z" itemprop="datePublished"> 发表于 2019-12-03</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP"><span class="toc-number">1.</span> <span class="toc-text">TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#端口"><span class="toc-number">1.1.</span> <span class="toc-text">端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#套接字"><span class="toc-number">1.2.</span> <span class="toc-text">套接字</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UDP"><span class="toc-number">2.</span> <span class="toc-text">UDP</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h1><p>TCP协议就像打电话，A给B打电话，B肯定要先接通电话才能听到A的讲话，这样就能够可靠地把A说的话听清楚，是一对一的关系</p>
+<h2 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h2><p>一台计算机只有一个连接到网络的物理端口（就是网线接口），一个端口怎么可能够用呢，明显会撞车，所以呢这个物理端口负责接收或者发送数据，而网络程序设计中的端口并非真实存在的，只是假想出来的连接装置。端口被规定为一个0 ~ 65535之间的整数，0 ~ 1023有其他用途，我们不能用了，所以写程序用的端口一定要在1024以上。</p>
+<h2 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h2><p>把网络比喻成电路或者电网，把端口比喻成插座，那套接字毫无疑问就是插头了，它跟端口一连接网络就通了，就像插头一插就通电了，其实就是在程序和网络之间起到桥梁的作用，</p>
+<p>c# 中socket类就相当于一个套接字的作用</p>
+<h1 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h1><p>UDP协议是用户数据报协议，基于UDP的通信与基于TCP的通信不同，TCP讲究可靠传送，是一对一，而UDP是不提供可靠的保证，但是传输信息更快。可以把UDP形象地比喻成学校广播，在广播台吼一声，学校范围内的人就能听得到，而在学校范围外的人就听不到，这里说的范围呢，在计算机中就是IP和端口，你进了这个范围就能收到广播的信息。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2019/12/03/tcp和udp/" data-title="tcp和udp | 110laile" data-tsina class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="/2019/12/06/理解RESTful架构/" title="理解RESTful架构">
+  <strong>上一篇：</strong><br>
+  <span>
+  理解RESTful架构</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2019/11/29/pythonWeb框架Django基础/" title="pythonWeb框架Django基础">
+ <strong>下一篇：</strong><br> 
+ <span>pythonWeb框架Django基础
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP"><span class="toc-number">1.</span> <span class="toc-text">TCP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#端口"><span class="toc-number">1.1.</span> <span class="toc-text">端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#套接字"><span class="toc-number">1.2.</span> <span class="toc-text">套接字</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UDP"><span class="toc-number">2.</span> <span class="toc-text">UDP</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/NET/" title=".NET">.NET<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Css/" title="Css">Css<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/HTML/" title="HTML">HTML<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>35</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Regex/" title="Regex">Regex<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Wpf/" title="Wpf">Wpf<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端框架/" title="前端框架">前端框架<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>36</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python-django/" title="Python django">Python django<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html/" title="Html">Html<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NET-Core简易入门/" title=".NET Core简易入门">.NET Core简易入门<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C/" title="C#">C#<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Css/" title="Css">Css<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html5/" title="Html5">Html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python基础轻松学/" title="Python基础轻松学">Python基础轻松学<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python爬虫轻松学/" title="Python爬虫轻松学">Python爬虫轻松学<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vue/" title="Vue">Vue<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,110laile. <br>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="110laile">110laile</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

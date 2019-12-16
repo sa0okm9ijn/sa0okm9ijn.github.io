@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/06/14/html和css基础/stack.gif">
 <meta property="og:image" content="http://yoursite.com/2019/06/14/html和css基础/2019-06-26_225531.png">
 <meta property="og:image" content="http://yoursite.com/2019/06/14/html和css基础/float.gif">
-<meta property="og:updated_time" content="2019-09-03T08:24:33.627Z">
+<meta property="og:updated_time" content="2019-11-25T02:27:48.083Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="html和css基础">
 <meta name="twitter:description" content="html超文本标记语言，层叠样式表 (Cascading Style Sheets，缩写为 CSS），是一种 样式表 语言，用来描述 HTML 或 XML（包括如 SVG、MathML、XHTML 之类的 XML 分支语言）文档的呈现。CSS 描述了在屏幕、纸质、音频等其它媒体上的元素应该如何被渲染的问题。">
@@ -168,8 +168,7 @@
 <p>此特性声明当前文档所使用的字符编码，常用的字符编码有utf-8、gb2312、gbk(繁体)，推荐使用utf-8</p>
 <h2 id="标准的文档结构"><a href="#标准的文档结构" class="headerlink" title="标准的文档结构"></a>标准的文档结构</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br></pre></td></tr></table></figure>
 <p>文档声明，告诉浏览器，当前文档使用的HTML标准是HTML5。</p>
-<p>不写文档声明，将导致浏览器进入怪异渲染模式。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span></span></span><br></pre></td></tr></table></figure>
+<p>不写文档声明，将导致浏览器进入怪异渲染模式（混杂模式）。混杂模式可以向后兼容。可以通过<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```html</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;/html</span><br></pre></td></tr></table></figure></p>
 <p>根元素，一个页面最多只能一个，并且该元素是所有其他元素的父元素或祖先元素。</p>
 <p>HTML5版本中没有强制要求书写该元素</p>
 <p>lang属性：language，全局属性，表示该元素内部使用的文字是使用哪一种自然语言书写而成的。</p>
@@ -199,7 +198,8 @@
 <li>为了让浏览器理解网页</li>
 </ol>
 <p>阅读模式、语音模式</p>
-<h1 id="文本元素"><a href="#文本元素" class="headerlink" title="文本元素"></a>文本元素</h1><h2 id="h"><a href="#h" class="headerlink" title="h"></a>h</h2><p>标题,h1~h6表示1级标题~6级标题</p>
+<h1 id="文本元素"><a href="#文本元素" class="headerlink" title="文本元素"></a>文本元素</h1><p>HTML5元素周期表<a href="http://www.xuanfengge.com/funny/html5/element/" target="_blank" rel="noopener"></a></p>
+<h2 id="h"><a href="#h" class="headerlink" title="h"></a>h</h2><p>标题,h1~h6表示1级标题~6级标题</p>
 <h2 id="p"><a href="#p" class="headerlink" title="p"></a>p</h2><p>段落</p>
 <blockquote>
 <p>lorem,乱数假文,主要的目的为测试文章或文字在不同字型、版型下看起来的效果，通常网站还没建设好时会出现这段文字</p>
@@ -1312,6 +1312,10 @@
 		  
 		
 		  
+			<li><a href="/categories/Css/" title="Css">Css<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/Docker/" title="Docker">Docker<sup>2</sup></a></li>
 		  
 		
@@ -1324,11 +1328,15 @@
 		  
 		
 		  
-			<li><a href="/categories/HTML/" title="HTML">HTML<sup>3</sup></a></li>
+			<li><a href="/categories/HTML/" title="HTML">HTML<sup>4</sup></a></li>
 		  
 		
 		  
-			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>34</sup></a></li>
+			<li><a href="/categories/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>35</sup></a></li>
 		  
 		
 		  
@@ -1340,7 +1348,7 @@
 		  
 		
 		  
-			<li><a href="/categories/Python/" title="Python">Python<sup>12</sup></a></li>
+			<li><a href="/categories/Python/" title="Python">Python<sup>13</sup></a></li>
 		  
 		
 		  
@@ -1377,11 +1385,11 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>35</sup></a></li>
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>36</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Python-django/" title="Python django">Python django<sup>6</sup></a></li>
+				<li><a href="/tags/Python-django/" title="Python django">Python django<sup>7</sup></a></li>
 			
 		
 			
@@ -1389,11 +1397,11 @@
 			
 		
 			
-				<li><a href="/tags/NET-Core简易入门/" title=".NET Core简易入门">.NET Core简易入门<sup>4</sup></a></li>
+				<li><a href="/tags/Python/" title="Python">Python<sup>4</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Python/" title="Python">Python<sup>4</sup></a></li>
+				<li><a href="/tags/NET-Core简易入门/" title=".NET Core简易入门">.NET Core简易入门<sup>4</sup></a></li>
 			
 		
 			
@@ -1409,11 +1417,15 @@
 			
 		
 			
-				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+				<li><a href="/tags/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+				<li><a href="/tags/Css/" title="Css">Css<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
 			
 		
 			
@@ -1421,39 +1433,35 @@
 			
 		
 			
-				<li><a href="/tags/函数柯里化/" title="函数柯里化">函数柯里化<sup>1</sup></a></li>
+				<li><a href="/tags/Html5/" title="Html5">Html5<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+				<li><a href="/tags/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Promise/" title="Promise">Promise<sup>1</sup></a></li>
+				<li><a href="/tags/Python基础轻松学/" title="Python基础轻松学">Python基础轻松学<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+				<li><a href="/tags/Python爬虫轻松学/" title="Python爬虫轻松学">Python爬虫轻松学<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vue/" title="Vue">Vue<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Python模块大全/" title="Python模块大全">Python模块大全<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Wpf/" title="Wpf">Wpf<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/VsCode/" title="VsCode">VsCode<sup>1</sup></a></li>
 			
 		
 		</ul>

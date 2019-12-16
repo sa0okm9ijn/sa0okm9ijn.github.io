@@ -1,0 +1,630 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>理解RESTful架构 | 110laile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="110laile">
+    
+
+    
+    <meta name="description" content="起源REST这个词，是Roy Thomas Fielding在他2000年的博士论文中提出的。 Fielding是一个非常重要的人，他是HTTP协议（1.0版和1.1版）的主要设计者、Apache服务器软件的作者之一、Apache基金会的第一任主席。 名称Fielding将他对互联网软件的架构原则，定名为REST，即Representational State Transfer的缩写。我对这个词组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解RESTful架构">
+<meta property="og:url" content="http://yoursite.com/2019/12/06/理解RESTful架构/index.html">
+<meta property="og:site_name" content="110laile">
+<meta property="og:description" content="起源REST这个词，是Roy Thomas Fielding在他2000年的博士论文中提出的。 Fielding是一个非常重要的人，他是HTTP协议（1.0版和1.1版）的主要设计者、Apache服务器软件的作者之一、Apache基金会的第一任主席。 名称Fielding将他对互联网软件的架构原则，定名为REST，即Representational State Transfer的缩写。我对这个词组">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-06T11:06:30.278Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解RESTful架构">
+<meta name="twitter:description" content="起源REST这个词，是Roy Thomas Fielding在他2000年的博士论文中提出的。 Fielding是一个非常重要的人，他是HTTP协议（1.0版和1.1版）的主要设计者、Apache服务器软件的作者之一、Apache基金会的第一任主席。 名称Fielding将他对互联网软件的架构原则，定名为REST，即Representational State Transfer的缩写。我对这个词组">
+
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="110laile" title="110laile"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="110laile">110laile</a></h1>
+				<h2 class="blog-motto">个人技术博客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/12/06/理解RESTful架构/" title="理解RESTful架构" itemprop="url">理解RESTful架构</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="110laile" target="_blank" itemprop="author">110laile</a>
+		
+  </p><p class="article-time">
+    <time datetime="2019-12-06T10:48:11.000Z" itemprop="datePublished"> 发表于 2019-12-06</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#起源"><span class="toc-number">1.</span> <span class="toc-text">起源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#名称"><span class="toc-number">2.</span> <span class="toc-text">名称</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#资源"><span class="toc-number">2.1.</span> <span class="toc-text">资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表现层"><span class="toc-number">2.2.</span> <span class="toc-text">表现层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#状态转化"><span class="toc-number">2.3.</span> <span class="toc-text">状态转化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#综述"><span class="toc-number">3.</span> <span class="toc-text">综述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#误区"><span class="toc-number">4.</span> <span class="toc-text">误区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设计指南"><span class="toc-number">5.</span> <span class="toc-text">设计指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#协议"><span class="toc-number">5.1.</span> <span class="toc-text">协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域名"><span class="toc-number">5.2.</span> <span class="toc-text">域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#版本"><span class="toc-number">5.3.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#路径"><span class="toc-number">5.4.</span> <span class="toc-text">路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP动词"><span class="toc-number">5.5.</span> <span class="toc-text">HTTP动词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤信息"><span class="toc-number">5.6.</span> <span class="toc-text">过滤信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#状态码"><span class="toc-number">5.7.</span> <span class="toc-text">状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#返回结果"><span class="toc-number">5.8.</span> <span class="toc-text">返回结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hypermedia-API"><span class="toc-number">5.9.</span> <span class="toc-text">Hypermedia API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">5.10.</span> <span class="toc-text">其他</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h1><p>REST这个词，是Roy Thomas Fielding在他2000年的博士论文中提出的。</p>
+<p>Fielding是一个非常重要的人，他是HTTP协议（1.0版和1.1版）的主要设计者、Apache服务器软件的作者之一、Apache基金会的第一任主席。</p>
+<h1 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h1><p>Fielding将他对互联网软件的架构原则，定名为REST，即Representational State Transfer的缩写。我对这个词组的翻译是”表现层状态转化”</p>
+<p><strong>要理解RESTful架构，最好的方法就是去理解Representational State Transfer这个词组到底是什么意思，它的每一个词代表了什么涵义</strong>。如果你把这个名称搞懂了，也就不难体会REST是一种什么样的设计。</p>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><p>REST的名称”表现层状态转化”中，省略了主语。”表现层”其实指的是”资源”（Resources）的”表现层”。所谓”资源”，就是网络上的一个实体，或者说是网络上的一个具体信息。它可以是一段文本、一张图片、一首歌曲、一种服务，总之就是一个具体的实在。你可以用一个URI（统一资源定位符）指向它，每种资源对应一个特定的URI。要获取这个资源，访问它的URI就可以，因此URI就成了每一个资源的地址或独一无二的识别符。</p>
+<p>所谓”上网”，就是与互联网上一系列的”资源”互动，调用它的URI。</p>
+<h2 id="表现层"><a href="#表现层" class="headerlink" title="表现层"></a>表现层</h2><p>“资源”是一种信息实体，它可以有多种外在表现形式。我们把”资源”具体呈现出来的形式，叫做它的”表现层”</p>
+<p>比如，文本可以用txt格式表现，也可以用HTML格式、XML格式、JSON格式表现，甚至可以采用二进制格式；图片可以用JPG格式表现，也可以用PNG格式表现。</p>
+<p>URI只代表资源的实体，不代表它的形式。严格地说，有些网址最后的”.html”后缀名是不必要的，因为这个后缀名表示格式，属于”表现层”范畴，而URI应该只代表”资源”的位置。它的具体表现形式，应该在HTTP请求的头信息中用Accept和Content-Type字段指定，这两个字段才是对”表现层”的描述。</p>
+<h2 id="状态转化"><a href="#状态转化" class="headerlink" title="状态转化"></a>状态转化</h2><p>访问一个网站，就代表了客户端和服务器的一个互动过程。在这个过程中，势必涉及到数据和状态的变化。</p>
+<p>互联网通信协议HTTP协议，是一个无状态协议。这意味着，所有的状态都保存在服务器端。因此，如果客户端想要操作服务器，必须通过某种手段，让服务器端发生”状态转化”（State Transfer）。而这种转化是建立在表现层之上的，所以就是”表现层状态转化”。</p>
+<p>客户端用到的手段，只能是HTTP协议。具体来说，就是HTTP协议里面，四个表示操作方式的动词：GET、POST、PUT、DELETE。它们分别对应四种基本操作：GET用来获取资源，POST用来新建资源（也可以用于更新资源），PUT用来更新资源，DELETE用来删除资源。</p>
+<h1 id="综述"><a href="#综述" class="headerlink" title="综述"></a>综述</h1><p>综合上面的解释，我们总结一下什么是RESTful架构：</p>
+<p>（1）每一个URI代表一种资源；</p>
+<p>（2）客户端和服务器之间，传递这种资源的某种表现层；</p>
+<p>（3）客户端通过四个HTTP动词，对服务器端资源进行操作，实现”表现层状态转化”。</p>
+<h1 id="误区"><a href="#误区" class="headerlink" title="误区"></a>误区</h1><p>RESTful架构有一些典型的设计误区。</p>
+<p>最常见的一种设计错误，就是URI包含动词。因为”资源”表示一种实体，所以应该是名词，URI不应该有动词，动词应该放在HTTP协议中。</p>
+<p>另一个设计误区，就是在URI中加入版本号：</p>
+<p>因为不同的版本，可以理解成同一种资源的不同表现形式，所以应该采用同一个URI。版本号可以在HTTP请求头信息的Accept字段中进行区分</p>
+<h1 id="设计指南"><a href="#设计指南" class="headerlink" title="设计指南"></a>设计指南</h1><h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>API与用户的通信协议，总是使用HTTPs协议。</p>
+<h2 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h2><p>应该尽量将API部署在专用域名之下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://api.example.com</span><br></pre></td></tr></table></figure>
+<p>如果确定API很简单，不会有进一步扩展，可以考虑放在主域名下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://example.org/api/</span><br></pre></td></tr></table></figure>
+<h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><p>应该将API的版本号放入URL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://api.example.com/v1/</span><br></pre></td></tr></table></figure>
+<p>另一种做法是，将版本号放在HTTP头信息中，但不如放入URL方便和直观。Github采用这种做法。</p>
+<h2 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h2><p>路径又称”终点”（endpoint），表示API的具体网址。</p>
+<p>在RESTful架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表格名对应。一般来说，数据库中的表都是同种记录的”集合”（collection），所以API中的名词也应该使用复数。</p>
+<p>举例来说，有一个API提供动物园（zoo）的信息，还包括各种动物和雇员的信息，则它的路径应该设计成下面这样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://api.example.com/v1/zoos</span><br><span class="line">https://api.example.com/v1/animals</span><br><span class="line">https://api.example.com/v1/employees</span><br></pre></td></tr></table></figure>
+<h2 id="HTTP动词"><a href="#HTTP动词" class="headerlink" title="HTTP动词"></a>HTTP动词</h2><p>对于资源的具体操作类型，由HTTP动词表示。</p>
+<p>常用的HTTP动词有下面五个（括号里是对应的SQL命令）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET（SELECT）：从服务器取出资源（一项或多项）。</span><br><span class="line">POST（CREATE）：在服务器新建一个资源。</span><br><span class="line">PUT（UPDATE）：在服务器更新资源（客户端提供改变后的完整资源）。</span><br><span class="line">PATCH（UPDATE）：在服务器更新资源（客户端提供改变的属性）。</span><br><span class="line">DELETE（DELETE）：从服务器删除资源</span><br></pre></td></tr></table></figure>
+<p>还有两个不常用的HTTP动词。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HEAD：获取资源的元数据。</span><br><span class="line">OPTIONS：获取信息，关于资源的哪些属性是客户端可以改变的。</span><br></pre></td></tr></table></figure>
+<p>下面是一些例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GET /zoos：列出所有动物园</span><br><span class="line">POST /zoos：新建一个动物园</span><br><span class="line">GET /zoos/ID：获取某个指定动物园的信息</span><br><span class="line">PUT /zoos/ID：更新某个指定动物园的信息（提供该动物园的全部信息）</span><br><span class="line">PATCH /zoos/ID：更新某个指定动物园的信息（提供该动物园的部分信息）</span><br><span class="line">DELETE /zoos/ID：删除某个动物园</span><br><span class="line">GET /zoos/ID/animals：列出某个指定动物园的所有动物</span><br><span class="line">DELETE /zoos/ID/animals/ID：删除某个指定动物园的指定动物</span><br></pre></td></tr></table></figure>
+<h2 id="过滤信息"><a href="#过滤信息" class="headerlink" title="过滤信息"></a>过滤信息</h2><p>如果记录数量很多，服务器不可能都将它们返回给用户。API应该提供参数，过滤返回结果。</p>
+<p>下面是一些常见的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">?limit=10：指定返回记录的数量</span><br><span class="line">?offset=10：指定返回记录的开始位置。</span><br><span class="line">?page=2&amp;per_page=100：指定第几页，以及每页的记录数。</span><br><span class="line">?sortby=name&amp;order=asc：指定返回结果按照哪个属性排序，以及排序顺序。</span><br><span class="line">?animal_type_id=1：指定筛选条件</span><br></pre></td></tr></table></figure>
+<p>参数的设计允许存在冗余，即允许API路径和URL参数偶尔有重复。比如，GET /zoo/ID/animals 与 GET /animals?zoo_id=ID 的含义是相同的。</p>
+<h2 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h2><p>服务器向用户返回的状态码和提示信息，常见的有以下一些（方括号中是该状态码对应的HTTP动词）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">200 OK - [GET]：服务器成功返回用户请求的数据，该操作是幂等的（Idempotent）。</span><br><span class="line">201 CREATED - [POST/PUT/PATCH]：用户新建或修改数据成功。</span><br><span class="line">202 Accepted - [*]：表示一个请求已经进入后台排队（异步任务）</span><br><span class="line">204 NO CONTENT - [DELETE]：用户删除数据成功。</span><br><span class="line">400 INVALID REQUEST - [POST/PUT/PATCH]：用户发出的请求有错误，服务器没有进行新建或修改数据的操作，该操作是幂等的。</span><br><span class="line">401 Unauthorized - [*]：表示用户没有权限（令牌、用户名、密码错误）。</span><br><span class="line">403 Forbidden - [*] 表示用户得到授权（与401错误相对），但是访问是被禁止的。</span><br><span class="line">404 NOT FOUND - [*]：用户发出的请求针对的是不存在的记录，服务器没有进行操作，该操作是幂等的。</span><br><span class="line">406 Not Acceptable - [GET]：用户请求的格式不可得（比如用户请求JSON格式，但是只有XML格式）。</span><br><span class="line">410 Gone -[GET]：用户请求的资源被永久删除，且不会再得到的。</span><br><span class="line">422 Unprocesable entity - [POST/PUT/PATCH] 当创建一个对象时，发生一个验证错误。</span><br><span class="line">500 INTERNAL SERVER ERROR - [*]：服务器发生错误，用户将无法判断发出的请求是否成功。</span><br></pre></td></tr></table></figure>
+<h2 id="返回结果"><a href="#返回结果" class="headerlink" title="返回结果"></a>返回结果</h2><p>针对不同操作，服务器向用户返回的结果应该符合以下规范。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET /collection：返回资源对象的列表（数组）</span><br><span class="line">GET /collection/resource：返回单个资源对象</span><br><span class="line">POST /collection：返回新生成的资源对象</span><br><span class="line">PUT /collection/resource：返回完整的资源对象</span><br><span class="line">PATCH /collection/resource：返回完整的资源对象</span><br><span class="line">DELETE /collection/resource：返回一个空文档</span><br></pre></td></tr></table></figure>
+<h2 id="Hypermedia-API"><a href="#Hypermedia-API" class="headerlink" title="Hypermedia API"></a>Hypermedia API</h2><p>RESTful API最好做到Hypermedia，即返回结果中提供链接，连向其他API方法，使得用户不查文档，也知道下一步应该做什么。</p>
+<p>Hypermedia API的设计被称为HATEOAS。Github的API就是这种设计，访问api.github.com会得到一个所有可用API的网址列表。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
+<li>API的身份认证应该使用OAuth 2.0框架。</li>
+<li>服务器返回的数据格式，应该尽量使用JSON，避免使用XML。</li>
+</ol>
+<p>转载至<a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2014/05/restful_api.html</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2019/12/06/理解RESTful架构/" data-title="理解RESTful架构 | 110laile" data-tsina class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="/2019/12/10/Node-基础知识/" title="Node-基础知识">
+  <strong>上一篇：</strong><br>
+  <span>
+  Node-基础知识</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2019/12/03/tcp和udp/" title="tcp和udp">
+ <strong>下一篇：</strong><br> 
+ <span>tcp和udp
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#起源"><span class="toc-number">1.</span> <span class="toc-text">起源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#名称"><span class="toc-number">2.</span> <span class="toc-text">名称</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#资源"><span class="toc-number">2.1.</span> <span class="toc-text">资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表现层"><span class="toc-number">2.2.</span> <span class="toc-text">表现层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#状态转化"><span class="toc-number">2.3.</span> <span class="toc-text">状态转化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#综述"><span class="toc-number">3.</span> <span class="toc-text">综述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#误区"><span class="toc-number">4.</span> <span class="toc-text">误区</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设计指南"><span class="toc-number">5.</span> <span class="toc-text">设计指南</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#协议"><span class="toc-number">5.1.</span> <span class="toc-text">协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域名"><span class="toc-number">5.2.</span> <span class="toc-text">域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#版本"><span class="toc-number">5.3.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#路径"><span class="toc-number">5.4.</span> <span class="toc-text">路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP动词"><span class="toc-number">5.5.</span> <span class="toc-text">HTTP动词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过滤信息"><span class="toc-number">5.6.</span> <span class="toc-text">过滤信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#状态码"><span class="toc-number">5.7.</span> <span class="toc-text">状态码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#返回结果"><span class="toc-number">5.8.</span> <span class="toc-text">返回结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hypermedia-API"><span class="toc-number">5.9.</span> <span class="toc-text">Hypermedia API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他"><span class="toc-number">5.10.</span> <span class="toc-text">其他</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/NET/" title=".NET">.NET<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Css/" title="Css">Css<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/HTML/" title="HTML">HTML<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>35</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Regex/" title="Regex">Regex<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Wpf/" title="Wpf">Wpf<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端框架/" title="前端框架">前端框架<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>36</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python-django/" title="Python django">Python django<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html/" title="Html">Html<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NET-Core简易入门/" title=".NET Core简易入门">.NET Core简易入门<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C/" title="C#">C#<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Css/" title="Css">Css<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html5/" title="Html5">Html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python基础轻松学/" title="Python基础轻松学">Python基础轻松学<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python爬虫轻松学/" title="Python爬虫轻松学">Python爬虫轻松学<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vue/" title="Vue">Vue<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,110laile. <br>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		
+		<a href="/about" target="_blank" title="110laile">110laile</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
