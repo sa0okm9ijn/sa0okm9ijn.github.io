@@ -15,16 +15,16 @@
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript属性描述符">
-<meta property="og:url" content="http://yoursite.com/2019/07/12/javascript属性描述符/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/07/12/JavaScript属性描述符/index.html">
 <meta property="og:site_name" content="110laile">
 <meta property="og:description" content="属性描述符（Property Descriptor）是 ES5 之后出现的概念，顾名思义，它用于描述属性应该是什么样，例如是否只读，能否枚举，能否可配置等。所有对象属性均可使用属性描述符来定义。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/07/12/javascript属性描述符/2019-07-12_112104.png">
-<meta property="og:updated_time" content="2019-10-23T07:01:03.215Z">
+<meta property="og:image" content="http://yoursite.com/2019/07/12/JavaScript属性描述符/2019-07-12_112104.png">
+<meta property="og:updated_time" content="2020-01-07T10:19:41.089Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript属性描述符">
 <meta name="twitter:description" content="属性描述符（Property Descriptor）是 ES5 之后出现的概念，顾名思义，它用于描述属性应该是什么样，例如是否只读，能否枚举，能否可配置等。所有对象属性均可使用属性描述符来定义。">
-<meta name="twitter:image" content="http://yoursite.com/2019/07/12/javascript属性描述符/2019-07-12_112104.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/12/JavaScript属性描述符/2019-07-12_112104.png">
 
     
     
@@ -82,7 +82,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2019/07/12/javascript属性描述符/" title="javascript属性描述符" itemprop="url">javascript属性描述符</a>
+      <a href="/2019/07/12/JavaScript属性描述符/" title="javascript属性描述符" itemprop="url">javascript属性描述符</a>
   </h1>
   <p class="article-author">By
        
@@ -142,7 +142,7 @@
 </table>
 <p>属性描述符定义属性通过defineProperty</p>
 <h3 id="示例1-控制年龄的输入"><a href="#示例1-控制年龄的输入" class="headerlink" title="示例1 控制年龄的输入"></a>示例1 控制年龄的输入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    var user = &#123;</span><br><span class="line">        name: &apos;xxx&apos;,</span><br><span class="line">        __age: 0</span><br><span class="line">    &#125;</span><br><span class="line">    //通过属性描述符定义一个属性</span><br><span class="line">    Object.defineProperty(user, &apos;age&apos;, &#123;</span><br><span class="line">        get: function () &#123;</span><br><span class="line">            return this.__age;</span><br><span class="line">        &#125;,</span><br><span class="line">        set: function (val) &#123;</span><br><span class="line">            if (val &lt; 0 || val &gt; 100) &#123;</span><br><span class="line">                throw new Error(&quot;赋值的数据&quot; + val + &quot;不在可用的范围中，可用的范围是：0~100&quot;);</span><br><span class="line">            &#125;</span><br><span class="line">            this.__age = val;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    user.age=101;</span><br><span class="line">    console.log(user.age);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>我们可以控制我们年龄范围为1-99，如果设置年龄除了范围，则会抛出异常，如图<br><img src="/2019/07/12/javascript属性描述符/2019-07-12_112104.png" alt="2019-07-12_112104"></p>
+<p>我们可以控制我们年龄范围为1-99，如果设置年龄除了范围，则会抛出异常，如图<br><img src="/2019/07/12/JavaScript属性描述符/2019-07-12_112104.png" alt="2019-07-12_112104"></p>
 <h3 id="示例2-圆的自由滚动"><a href="#示例2-圆的自由滚动" class="headerlink" title="示例2 圆的自由滚动"></a>示例2 圆的自由滚动</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Circle</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.width = <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">this</span>.height = <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">this</span>.dom = <span class="built_in">document</span>.querySelector(<span class="string">".circle"</span>);</span><br><span class="line">        <span class="keyword">this</span>.__left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.__top = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.xDis = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">this</span>.yDis = <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>, <span class="string">"left"</span>, &#123;</span><br><span class="line">            <span class="keyword">get</span>: function () &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.__left;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="keyword">set</span>: function (val) &#123;</span><br><span class="line">                <span class="keyword">if</span> (val &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.xDis = -<span class="keyword">this</span>.xDis;</span><br><span class="line">                    val = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (val &gt; <span class="built_in">document</span>.documentElement.clientWidth - <span class="keyword">this</span>.width) &#123;</span><br><span class="line">                    val = <span class="built_in">document</span>.documentElement.clientWidth - <span class="keyword">this</span>.width;</span><br><span class="line">                    <span class="keyword">this</span>.xDis = -<span class="keyword">this</span>.xDis;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">this</span>.__left = val;</span><br><span class="line">                <span class="keyword">this</span>.dom.style.left = val + <span class="string">"px"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">Object</span>.defineProperty(<span class="keyword">this</span>, <span class="string">"top"</span>, &#123;</span><br><span class="line">            <span class="keyword">get</span>: function () &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>.__top;</span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="keyword">set</span>: function (val) &#123;</span><br><span class="line">                <span class="keyword">if</span> (val &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">this</span>.yDis = -<span class="keyword">this</span>.yDis;</span><br><span class="line">                    val = <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (val &gt; <span class="built_in">document</span>.documentElement.clientHeight - <span class="keyword">this</span>.height) &#123;</span><br><span class="line">                    val = <span class="built_in">document</span>.documentElement.clientHeight - <span class="keyword">this</span>.height;</span><br><span class="line">                    <span class="keyword">this</span>.yDis = -<span class="keyword">this</span>.yDis;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">this</span>.__top = val;</span><br><span class="line">                <span class="keyword">this</span>.dom.style.top = val + <span class="string">"px"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> circle = <span class="keyword">new</span> Circle();</span><br><span class="line">    setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        circle.left += circle.xDis;</span><br><span class="line">        circle.top += circle.yDis;</span><br><span class="line">    &#125;, <span class="number">10</span>);</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <p>可以发现当我们设置了属性left之后小球就会移动，这也就解释了上面的第一个问题设置了innerText界面会刷新值的问题</p>
 <p>下面我们说说描述符的具有的键值</p>
@@ -166,7 +166,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2019/07/12/javascript属性描述符/" data-title="javascript属性描述符 | 110laile" data-tsina class="share clearfix">
+	  <div data-url="http://yoursite.com/2019/07/12/JavaScript属性描述符/" data-title="javascript属性描述符 | 110laile" data-tsina class="share clearfix">
 	  </div>
 	
 	</div>
@@ -257,11 +257,15 @@
 		  
 		
 		  
-			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>35</sup></a></li>
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>41</sup></a></li>
 		  
 		
 		  
 			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
 		  
 		
 		  
@@ -289,6 +293,10 @@
 		  
 		
 		  
+			<li><a href="/categories/css/" title="css">css<sup>1</sup></a></li>
+		  
+		
+		  
 			<li><a href="/categories/前端框架/" title="前端框架">前端框架<sup>1</sup></a></li>
 		  
 		
@@ -306,7 +314,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>36</sup></a></li>
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>41</sup></a></li>
 			
 		
 			
@@ -354,7 +362,19 @@
 			
 		
 			
+				<li><a href="/tags/Vue/" title="Vue">Vue<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Html5/" title="Html5">Html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/webpack/" title="webpack">webpack<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/包管理/" title="包管理">包管理<sup>1</sup></a></li>
 			
 		
 			
@@ -362,27 +382,15 @@
 			
 		
 			
-				<li><a href="/tags/Python基础轻松学/" title="Python基础轻松学">Python基础轻松学<sup>1</sup></a></li>
+				<li><a href="/tags/模块化/" title="模块化">模块化<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Python爬虫轻松学/" title="Python爬虫轻松学">Python爬虫轻松学<sup>1</sup></a></li>
+				<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Vue/" title="Vue">Vue<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
 			
 		
 		</ul>
@@ -421,7 +429,7 @@
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2019 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2020 
 		
 		<a href="/about" target="_blank" title="110laile">110laile</a>
 		

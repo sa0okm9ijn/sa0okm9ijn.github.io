@@ -1,0 +1,835 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>JavaScript-模块化 | 110laile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="110laile">
+    
+
+    
+    <meta name="description" content="模块化发展史第一阶段在 JavaScript 语言刚刚诞生的时候，它仅仅用于实现页面中的一些小效果 那个时候，一个页面所用到的 JS 可能只有区区几百行的代码 在这种情况下，语言本身所存在的一些缺陷往往被大家有意的忽略，因为程序的规模实在太小，只要开发人员小心谨慎，往往不会造成什么问题 在这个阶段，也不存在专业的前端工程师，由于前端要做的事情实在太少，因此这一部分工作往往由后端工程师顺带完成 第一">
+<meta name="keywords" content="JavaScript,模块化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript-模块化">
+<meta property="og:url" content="http://yoursite.com/2020/03/02/JavaScript-模块化/index.html">
+<meta property="og:site_name" content="110laile">
+<meta property="og:description" content="模块化发展史第一阶段在 JavaScript 语言刚刚诞生的时候，它仅仅用于实现页面中的一些小效果 那个时候，一个页面所用到的 JS 可能只有区区几百行的代码 在这种情况下，语言本身所存在的一些缺陷往往被大家有意的忽略，因为程序的规模实在太小，只要开发人员小心谨慎，往往不会造成什么问题 在这个阶段，也不存在专业的前端工程师，由于前端要做的事情实在太少，因此这一部分工作往往由后端工程师顺带完成 第一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/03/02/JavaScript-模块化/2019-11-28-15-45-47.png">
+<meta property="og:updated_time" content="2020-03-06T02:21:48.447Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript-模块化">
+<meta name="twitter:description" content="模块化发展史第一阶段在 JavaScript 语言刚刚诞生的时候，它仅仅用于实现页面中的一些小效果 那个时候，一个页面所用到的 JS 可能只有区区几百行的代码 在这种情况下，语言本身所存在的一些缺陷往往被大家有意的忽略，因为程序的规模实在太小，只要开发人员小心谨慎，往往不会造成什么问题 在这个阶段，也不存在专业的前端工程师，由于前端要做的事情实在太少，因此这一部分工作往往由后端工程师顺带完成 第一">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/02/JavaScript-模块化/2019-11-28-15-45-47.png">
+
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="110laile" title="110laile"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="110laile">110laile</a></h1>
+				<h2 class="blog-motto">个人技术博客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/03/02/JavaScript-模块化/" title="JavaScript-模块化" itemprop="url">JavaScript-模块化</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="110laile" target="_blank" itemprop="author">110laile</a>
+		
+  </p><p class="article-time">
+    <time datetime="2020-03-02T07:22:47.000Z" itemprop="datePublished"> 发表于 2020-03-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#模块化发展史"><span class="toc-number">1.</span> <span class="toc-text">模块化发展史</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段"><span class="toc-number">1.1.</span> <span class="toc-text">第一阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二阶段"><span class="toc-number">1.2.</span> <span class="toc-text">第二阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三阶段"><span class="toc-number">1.3.</span> <span class="toc-text">第三阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四阶段"><span class="toc-number">1.4.</span> <span class="toc-text">第四阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CommonJS"><span class="toc-number">2.</span> <span class="toc-text">CommonJS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装nodejs"><span class="toc-number">2.1.</span> <span class="toc-text">安装nodejs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nodejs对CommonJS的实现"><span class="toc-number">2.2.</span> <span class="toc-text">nodejs对CommonJS的实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMD和CMD"><span class="toc-number">3.</span> <span class="toc-text">AMD和CMD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CommonJS的工作原理"><span class="toc-number">3.1.</span> <span class="toc-text">CommonJS的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#当浏览器遇到CommonJS"><span class="toc-number">3.2.</span> <span class="toc-text">当浏览器遇到CommonJS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新的规范"><span class="toc-number">3.3.</span> <span class="toc-text">新的规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AMD"><span class="toc-number">3.4.</span> <span class="toc-text">AMD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMD"><span class="toc-number">3.5.</span> <span class="toc-text">CMD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6模块化"><span class="toc-number">4.</span> <span class="toc-text">ES6模块化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的引入"><span class="toc-number">4.1.</span> <span class="toc-text">模块的引入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的基本导出和导入"><span class="toc-number">4.2.</span> <span class="toc-text">模块的基本导出和导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#细节"><span class="toc-number">4.3.</span> <span class="toc-text">细节</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="模块化发展史"><a href="#模块化发展史" class="headerlink" title="模块化发展史"></a>模块化发展史</h2><h3 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h3><p>在 JavaScript 语言刚刚诞生的时候，它仅仅用于实现页面中的一些小效果</p>
+<p>那个时候，一个页面所用到的 JS 可能只有区区几百行的代码</p>
+<p>在这种情况下，语言本身所存在的一些缺陷往往被大家有意的忽略，因为程序的规模实在太小，只要开发人员小心谨慎，往往不会造成什么问题</p>
+<p>在这个阶段，也不存在专业的前端工程师，由于前端要做的事情实在太少，因此这一部分工作往往由后端工程师顺带完成</p>
+<p>第一阶段发生的大事件：</p>
+<ul>
+<li>1996年，NetScape将JavaScript语言提交给欧洲的一个标准制定阻止ECMA（欧洲计算机制造商协会）</li>
+<li>1998年，NetScape在与微软浏览器IE的竞争中失利，宣布破产</li>
+</ul>
+<h3 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h3><p>ajax的出现，逐渐改变了 JavaScript 在浏览器中扮演的角色。现在，它不仅可以实现小的效果，还可以和服务器之间进行交互，以更好的体验来改变数据</p>
+<p>JS代码的数量开始逐渐增长，从最初的几百行，到后来的几万行，前端程序逐渐变得复杂</p>
+<p>后端开发者压力逐渐增加，致使一些公司开始招募专业的前端开发者</p>
+<p>但此时，前端开发者的待遇远不及后端开发者，因为前端开发者承担的开发任务相对于后端开发来说，还是比较简单的，通过短短一个月的时间集训，就可以成为满足前端开发的需要</p>
+<p>究其根本原因，是因为前端开发还有几个大的问题没有解决，这些问题都严重的制约了前端程序的规模进一步扩大：</p>
+<ul>
+<li>浏览器解释执行JS的速度太慢</li>
+<li>用户端的电脑配置不足</li>
+<li>更多的代码带来了全局变量污染、依赖关系混乱等问题</li>
+</ul>
+<p>上面三个问题，就像是阿喀琉斯之踵，成为前端开发挥之不去的阴影和原罪。<br>在这个阶段，前端开发处在一个非常尴尬的境地，它在传统的开发模式和前后端分离之间无助的徘徊<br>第二阶段的大事件：</p>
+<ul>
+<li>IE浏览器制霸市场后，几乎不再更新</li>
+<li>ES4.0流产，导致JS语言10年间几乎毫无变化</li>
+<li>2008年ES5发布，仅解决了一些 JS API 不足的糟糕局面</li>
+</ul>
+<h3 id="第三阶段"><a href="#第三阶段" class="headerlink" title="第三阶段"></a>第三阶段</h3><p>时间继续向前推移，到了2008年，谷歌的 V8 引擎发布，将JS的执行速度推上了一个新的台阶，甚至可以和后端语言媲美。</p>
+<p>摩尔定律持续发酵，个人电脑的配置开始飞跃</p>
+<p>突然间，制约前端发展的两大问题得以解决，此时，只剩下最后一个问题还在负隅顽抗，即全局变量污染和依赖混乱的问题，解决了它，前端便可以突破一切障碍，未来无可限量。</p>
+<p>于是，全世界的前端开发者在社区中激烈的讨论，想要为这个问题寻求解决之道……</p>
+<p>2008年，有一个名叫 Ryan Dahl 小伙子正在为一件事焦头烂额，它需要在服务器端手写一个高性能的web服务，该服务对于性能要求之高，以至于目前市面上已有的web服务产品都满足不了需求。</p>
+<p>经过分析，它确定，如果要实现高性能，那么必须要尽可能的减少线程，而要减少线程，避免不了要实用异步的处理方案。</p>
+<p>一开始，他打算自己实用C/C++语言来编写，可是这一过程实在太痛苦。</p>
+<p>就在他一筹莫展的时候，谷歌 V8 引擎的发布引起了他的注意，他突然发现，JS不就是最好的实现web服务的语言吗？它天生就是单线程，并且是基于异步的！有了V8引擎的支撑，它的执行速度完全可以撑起一个服务器。而且V8是鼎鼎大名的谷歌公司发布的，谷歌一定会不断的优化V8，有这种又省钱又省力的好事，我干嘛还要自己去写呢？</p>
+<p>于是，它基于开源的V8引擎，对源代码作了一些修改，便快速的完成了该项目。</p>
+<p>2009年，Ryan推出了该web服务项目，命名为nodejs。</p>
+<p>从此，JS第一次堂堂正正的入主后端，不再是必须附属于浏览器的“玩具”语言了。</p>
+<p>也是从此刻开始，人们认识到，JS（ES）是一门真正的语言，它依附于运行环境（运行时）（宿主程序）而执行</p>
+<p><img src="/2020/03/02/JavaScript-模块化/2019-11-28-15-45-47.png" alt></p>
+<p>nodejs的诞生，便把JS中的最后一个问题放到了台前，即全局变量污染和依赖混乱问题</p>
+<p>要直到，nodejs是服务器端，如果不解决这个问题，分模块开发就无从实现，而模块化开发是所有后端程序必不可少的内容</p>
+<p>经过社区的激烈讨论，最终，形成了一个模块化方案，即鼎鼎大名的CommonJS，该方案，彻底解决了全局变量污染和依赖混乱的问题</p>
+<p>该方案一出，立即被nodejs支持，于是，nodejs成为了第一个为JS语言实现模块化的平台，为前端接下来的迅猛发展奠定了实践基础</p>
+<p>该阶段发生的大事件：</p>
+<ul>
+<li>2008年，V8发布</li>
+<li>IE的市场逐步被 firefox 和 chrome 蚕食，现已无力回天</li>
+<li>2009年，nodejs发布，并附带commonjs模块化标准</li>
+</ul>
+<h3 id="第四阶段"><a href="#第四阶段" class="headerlink" title="第四阶段"></a>第四阶段</h3><p>CommonJS的出现打开了前端开发者的思路</p>
+<p>既然后端可以使用模块化的JS，作为JS语言的老东家浏览器为什么不行呢？</p>
+<p>于是，开始有人想办法把CommonJS运用到浏览器中</p>
+<p>可是这里面存在诸多的困难（后面我们会介绍）</p>
+<p>办法总比困难多，有些开发者就想，既然CommonJS运用到浏览器困难，我们干嘛不自己重新定一个模块化的标准出来，难道就一定要用CommonJS标准吗？</p>
+<p>于是很快，AMD规范出炉，它解决的问题和CommonJS一样，但是可以更好的适应浏览器环境</p>
+<p>相继的，CMD规范出炉，它对AMD规范进行了改进</p>
+<p>这些行为，都受到了ECMA官方的密切关注……</p>
+<p>2015年，ES6发布，它提出了官方的模块化解决方案 —— ES6 模块化</p>
+<p>从此以后，模块化成为了JS本身特有的性质，这门语言终于有了和其他语言较量的资本，成为了可以编写大型应用的正式语言</p>
+<p>于此同时，很多开发者、技术厂商早已预见到JS的无穷潜力，于是有了下面的故事</p>
+<ul>
+<li>既然JS也能编写大型应用，那么自然也需要像其他语言那样有解决复杂问题的开发框架<ul>
+<li>Angular、React、Vue等前端开发框架出现</li>
+<li>Express、Koa等后端开发框架出现</li>
+<li>各种后端数据库驱动出现</li>
+</ul>
+</li>
+<li>要开发大型应用，自然少不了各种实用的第三方库的支持<ul>
+<li>npm包管理器出现，实用第三方库变得极其方便</li>
+<li>webpack等构建工具出现，专门用于打包和部署</li>
+</ul>
+</li>
+<li>既然JS可以放到服务器环境，为什么不能放到其他终端环境呢？<ul>
+<li>Electron发布，可以使用JS语言开发桌面应用程序</li>
+<li>RN和Vuex等技术发布，可以使用JS语言编写移动端应用程序</li>
+<li>各种小程序出现，可以使用JS编写依附于其他应用的小程序</li>
+<li>目前还有很多厂商致力于将JS应用到各种其他的终端设备，最终形成大前端生态<blockquote>
+<p>可以看到，模块化的出现，是JS通向大型应用的基石，学习好模块化，变具备了编写大型应用的基本功。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><h3 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h3><p>官网地址:<a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">https://nodejs.org/zh-cn/</a></p>
+<p><strong>浏览器</strong></p>
+<p>浏览器运行的是html页面，并加载页面中通过script元素引入的js</p>
+<p><strong>nodejs</strong></p>
+<p>nodejs直接运行某个js文件，该文件被称之为入口文件</p>
+<p>nodejs遵循EcmaScript标准，但由于脱离了浏览器环境，因此：</p>
+<ul>
+<li>你可以在nodejs中使用EcmaScript标准的任何语法或api，例如：循环、判断、数组、对象等</li>
+<li>你不能在nodejs中使用浏览器的 web api，例如：dom对象、window对象、document对象等</li>
+</ul>
+<p>由于大部分开发者是从浏览器端开发转向nodejs开发的，为了降低开发者的学习成本，nodejs中提供了一些和浏览器web api同样的对象或函数，例如：console、setTimeout、setInterval等</p>
+<h3 id="nodejs对CommonJS的实现"><a href="#nodejs对CommonJS的实现" class="headerlink" title="nodejs对CommonJS的实现"></a>nodejs对CommonJS的实现</h3><p>在nodejs中，由于有且仅有一个入口文件（启动文件），而开发一个应用肯定会涉及到多个文件配合，因此，nodejs对模块化的需求比浏览器端要大的多</p>
+<p>由于nodejs刚刚发布的时候，前端没有统一的、官方的模块化规范，因此，它选择使用社区提供的CommonJS作为模块化规范</p>
+<p>在学习CommonJS之前，首先认识两个重要的概念：<strong>模块的导出</strong>和<strong>模块的导入</strong></p>
+<ul>
+<li>模块的导出</li>
+</ul>
+<p>要理解模块的导出，首先要理解模块的含义</p>
+<p>什么是模块？</p>
+<p>模块就是一个JS文件，它实现了一部分功能，并隐藏自己的内部实现，同时提供了一些接口供其他模块使用</p>
+<p>模块有两个核心要素：隐藏和暴露</p>
+<p>隐藏的，是自己内部的实现</p>
+<p>暴露的，是希望外部使用的接口</p>
+<p>任何一个正常的模块化标准，都应该默认隐藏模块中的所有实现，而通过一些语法或api调用来暴露接口</p>
+<p>暴露接口的过程即模块的导出</p>
+<ul>
+<li>模块的导入</li>
+</ul>
+<p>当需要使用一个模块时，使用的是该模块暴露的部分（导出的部分），隐藏的部分是永远无法使用的。</p>
+<p>当通过某种语法或api去使用一个模块时，这个过程叫做模块的导入</p>
+<ul>
+<li>CommonJS规范</li>
+</ul>
+<p>CommonJS使用exports导出模块，require导入模块<br>具体规范如下：</p>
+<ol>
+<li>如果一个JS文件中存在exports或require，该JS文件是一个模块</li>
+<li>模块内的所有代码均为隐藏代码，包括全局变量、全局函数，这些全局的内容均不应该对全局变量造成任何污染</li>
+<li>如果一个模块需要暴露一些API提供给外部使用，需要通过exports导出，exports是一个空的对象，你可以为该对象添加任何需要导出的内容</li>
+<li>如果一个模块需要导入其他模块，通过require实现，require是一个函数，传入模块的路径即可返回该模块导出的整个内容<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'./a.js'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(a.abc);</span><br><span class="line"><span class="comment">//a.js</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;<span class="comment">//隐藏内部实现</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"util模块执行了!"</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    abc: <span class="number">123</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>实现细节<br>为了实现CommonJS规范，nodejs对模块做出了以下处理</li>
+</ul>
+<ol>
+<li>为了保证高效的执行，仅加载必要的模块。nodejs只有执行到require函数时才会加载并执行模块</li>
+<li><p>为了隐藏模块中的代码，nodejs执行模块时，会将模块中的所有代码放置到一个函数中执行，以保证不污染全局变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="comment">//模块中的代码</span></span><br><span class="line"> &#125;)()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为了保证顺利的导出模块内容，nodejs做了以下处理</p>
+<ol>
+<li>在模块开始执行前，初始化一个值module.exports = {}</li>
+<li>module.exports即模块的导出值</li>
+<li>为了方便开发者便捷的导出，nodejs在初始化完module.exports后，又声明了一个变量exports = module.exports<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">module</span>.exports = &#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> exports = <span class="built_in">module</span>.exports;</span><br><span class="line">  <span class="comment">//模块中的代码</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line"> &#125;)()</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><p>为了避免反复加载同一个模块，nodejs默认开启了模块缓存，如果加载的模块已经被加载过了，则会自动使用之前的导出结果</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//只会加载依次,第二次直接取缓存</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'./a.js'</span>);</span><br><span class="line"><span class="keyword">var</span> b = <span class="built_in">require</span>(<span class="string">'./a.js'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="AMD和CMD"><a href="#AMD和CMD" class="headerlink" title="AMD和CMD"></a>AMD和CMD</h2><h3 id="CommonJS的工作原理"><a href="#CommonJS的工作原理" class="headerlink" title="CommonJS的工作原理"></a>CommonJS的工作原理</h3><p>当使用require(模块路径)导入一个模块时，node会做以下两件事情（不考虑模块缓存）：</p>
+<ul>
+<li>通过模块路径找到本机文件，并读取文件内容</li>
+<li>将文件中的代码放入到一个函数环境中执行，并将执行后module.exports的值作为require函数的返回结果</li>
+</ul>
+<p>正是这两个步骤，使得CommonJS在node端可以良好的被支持</p>
+<p>可以认为，CommonJS是同步的，必须要等到加载完文件并执行完代码后才能继续向后执行</p>
+<h3 id="当浏览器遇到CommonJS"><a href="#当浏览器遇到CommonJS" class="headerlink" title="当浏览器遇到CommonJS"></a>当浏览器遇到CommonJS</h3><p>当想要把CommonJS放到浏览器端时，就遇到了一些挑战</p>
+<ul>
+<li>浏览器要加载JS文件，需要远程从服务器读取，而网络传输的效率远远低于node环境中读取本地文件的效率。由于CommonJS是同步的，这会极大的降低运行性能</li>
+<li>如果需要读取JS文件内容并把它放入到一个环境中执行，需要浏览器厂商的支持，可是浏览器厂商不愿意提供支持，最大的原因是CommonJS属于社区标准，并非官方标准</li>
+</ul>
+<h3 id="新的规范"><a href="#新的规范" class="headerlink" title="新的规范"></a>新的规范</h3><p>基于以上两点原因，浏览器无法支持模块化</p>
+<p>可这并不代表模块化不能在浏览器中实现</p>
+<p>要在浏览器中实现模块化，只要能解决上面的两个问题就行了</p>
+<p>解决办法其实很简单：</p>
+<ul>
+<li>远程加载JS浪费了时间？做成异步即可，加载完成后调用一个回调就行了</li>
+<li>模块中的代码需要放置到函数中执行？编写模块时，直接放函数中就行了</li>
+</ul>
+<p>基于这种简单有效的思路，出现了AMD和CMD规范，有效的解决了浏览器模块化的问题。</p>
+<h3 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h3><p>全称是Asynchronous Module Definition，即异步模块加载机制<br>require.js实现了AMD规范</p>
+<p>在AMD中，导入和导出模块的代码，都必须放置在define函数中</p>
+<p>导入:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">define([依赖的模块列表], <span class="function"><span class="keyword">function</span>(<span class="params">模块名称列表</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//模块内部的代码</span></span><br><span class="line">    <span class="keyword">return</span> 导出的内容</span><br><span class="line">&#125;)</span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require,exports,module</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xxx = <span class="built_in">require</span>(<span class="string">'xxx'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>导出:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require,exports,module</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">module</span>.exports=&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h3><p>全称是Common Module Definition，公共模块定义规范</p>
+<p>sea.js实现了CMD规范</p>
+<p>在CMD中，导入和导出模块的代码，都必须放置在define函数中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//模块内部的代码</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="ES6模块化"><a href="#ES6模块化" class="headerlink" title="ES6模块化"></a>ES6模块化</h2><p>ECMA组织参考了众多社区模块化标准，终于在2015年，随着ES6发布了官方的模块化标准，后成为ES6模块化</p>
+<p>ES6模块化具有以下的特点</p>
+<ol>
+<li>使用依赖<strong>预声明</strong>的方式导入模块<ol>
+<li>依赖延迟声明<ol>
+<li>优点：某些时候可以提高效率</li>
+<li>缺点：无法在一开始确定模块依赖关系（比较模糊）</li>
+</ol>
+</li>
+<li>依赖预声明<ol>
+<li>优点：在一开始可以确定模块依赖关系</li>
+<li>缺点：某些时候效率较低</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>灵活的多种导入导出方式</li>
+<li>规范的路径表示法：所有路径必须以./或../开头</li>
+</ol>
+<h3 id="模块的引入"><a href="#模块的引入" class="headerlink" title="模块的引入"></a>模块的引入</h3><p><strong>注意：这一部分非模块化标准</strong></p>
+<p>目前，浏览器使用以下方式引入一个ES6模块文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"入口文件"</span> type=<span class="string">"module"</span>&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="模块的基本导出和导入"><a href="#模块的基本导出和导入" class="headerlink" title="模块的基本导出和导入"></a>模块的基本导出和导入</h3><p>ES6中的模块导入导出分为两种：</p>
+<ul>
+<li>基本导入导出</li>
+</ul>
+<p><strong>导出:</strong><br>类似于 exports.xxx = xxxx<br>基本导出可以有多个，每个必须有名称<br>基本导出的语法如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> 声明表达式</span><br></pre></td></tr></table></figure></p>
+<p>或<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;具名符号&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于基本导出必须具有名称，所以要求导出内容必须跟上声明表达式或具名符号</p>
+<p><strong>导入:</strong><br>由于使用的是依赖预加载，因此，导入任何其他模块，导入代码必须放置到所有代码之前(<strong>就算你放到后面浏览器也会给你放到前面</strong>)<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这样的写法会语法错误</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">if</span>(a==<span class="number">123</span>)&#123;</span><br><span class="line">    <span class="keyword">import</span> &#123;a&#125; <span class="keyword">from</span> <span class="string">'./a.js'</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">import</span> &#123;b&#125; <span class="keyword">from</span> <span class="string">'./b.js'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于基本导出，如果要进行导入，使用下面的代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;导入的符号列表&#125; <span class="keyword">from</span> <span class="string">"模块路径"</span></span><br></pre></td></tr></table></figure></p>
+<p>注意以下细节：</p>
+<ol>
+<li>导入时，可以通过关键字as对导入的符号进行重命名</li>
+<li>导入时使用的符号是常量，不可修改</li>
+<li>可以使用*号导入所有的基本导出，形成一个对象</li>
+<li>初始化运行代码可以直接<code>import 路径</code></li>
+</ol>
+<ul>
+<li>默认导入导出</li>
+</ul>
+<p><strong>导出:</strong><br>每个模块，除了允许有多个基本导出之外，还允许有一个默认导出<br>默认导出类似于CommonJS中的module.exports，由于只有一个，因此无需具名</p>
+<p>具体的语法是</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> 默认导出的数据</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;默认导出的数据 <span class="keyword">as</span> <span class="keyword">default</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>由于每个模块仅允许有一个默认导出，因此，每个模块不能出现多个默认导出语句</p>
+<p><strong>导入:</strong></p>
+<p>需要想要导入一个模块的默认导出，需要使用下面的语法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> 接收变量名 <span class="keyword">from</span> <span class="string">"模块路径"</span></span><br></pre></td></tr></table></figure>
+<p>由于默认导入时变量名是自行定义的，因此没有别名一说</p>
+<p>如果希望同时导入某个模块的默认导出和基本导出，可以使用下面的语法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> 接收默认导出的变量, &#123;接收基本导出的变量&#125; <span class="keyword">from</span> <span class="string">"模块路径"</span></span><br></pre></td></tr></table></figure>
+<p>注：如果使用*号，会将所有基本导出和默认导出聚合到一个对象中，默认导出会作为属性default存在</p>
+<h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><ul>
+<li>尽量导出不可变值<br>当导出一个内容时，尽量保证该内容是不可变的（大部分情况都是如此）</li>
+</ul>
+<p>因为，虽然导入后，无法更改导入内容，但是在导入的模块内部却有可能发生更改，这将导致一些无法预料的事情发生</p>
+<ul>
+<li><p>可以使用无绑定的导入用于执行一些初始化代码<br>如果我们只是想执行模块中的一些代码，而不需要导入它的任何内容，可以使用无绑定的导入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"模块路径"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以使用绑定再导出，来重新导出来自另一个模块的内容</p>
+</li>
+</ul>
+<p>有的时候，我们可能需要用一个模块封装多个模块，然后有选择的将多个模块的内容分别导出，可以使用下面的语法轻松完成</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> &#123;绑定的标识符&#125; <span class="keyword">from</span> <span class="string">"模块路径"</span></span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JavaScript/">JavaScript</a><a href="/tags/模块化/">模块化</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2020/03/02/JavaScript-模块化/" data-title="JavaScript-模块化 | 110laile" data-tsina class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev">
+ <a href="/2020/03/03/JavaScript-包管理/" title="JavaScript-包管理">
+  <strong>上一篇：</strong><br>
+  <span>
+  JavaScript-包管理</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2020/02/25/MongoDB-基础知识/" title="MongoDB-基础知识">
+ <strong>下一篇：</strong><br> 
+ <span>MongoDB-基础知识
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#模块化发展史"><span class="toc-number">1.</span> <span class="toc-text">模块化发展史</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段"><span class="toc-number">1.1.</span> <span class="toc-text">第一阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二阶段"><span class="toc-number">1.2.</span> <span class="toc-text">第二阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三阶段"><span class="toc-number">1.3.</span> <span class="toc-text">第三阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四阶段"><span class="toc-number">1.4.</span> <span class="toc-text">第四阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CommonJS"><span class="toc-number">2.</span> <span class="toc-text">CommonJS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装nodejs"><span class="toc-number">2.1.</span> <span class="toc-text">安装nodejs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nodejs对CommonJS的实现"><span class="toc-number">2.2.</span> <span class="toc-text">nodejs对CommonJS的实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AMD和CMD"><span class="toc-number">3.</span> <span class="toc-text">AMD和CMD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CommonJS的工作原理"><span class="toc-number">3.1.</span> <span class="toc-text">CommonJS的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#当浏览器遇到CommonJS"><span class="toc-number">3.2.</span> <span class="toc-text">当浏览器遇到CommonJS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#新的规范"><span class="toc-number">3.3.</span> <span class="toc-text">新的规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AMD"><span class="toc-number">3.4.</span> <span class="toc-text">AMD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMD"><span class="toc-number">3.5.</span> <span class="toc-text">CMD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6模块化"><span class="toc-number">4.</span> <span class="toc-text">ES6模块化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的引入"><span class="toc-number">4.1.</span> <span class="toc-text">模块的引入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模块的基本导出和导入"><span class="toc-number">4.2.</span> <span class="toc-text">模块的基本导出和导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#细节"><span class="toc-number">4.3.</span> <span class="toc-text">细节</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/NET/" title=".NET">.NET<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Css/" title="Css">Css<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/HTML/" title="HTML">HTML<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>41</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Regex/" title="Regex">Regex<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Wpf/" title="Wpf">Wpf<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/css/" title="css">css<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端框架/" title="前端框架">前端框架<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>41</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python-django/" title="Python django">Python django<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html/" title="Html">Html<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NET-Core简易入门/" title=".NET Core简易入门">.NET Core简易入门<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C/" title="C#">C#<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Css/" title="Css">Css<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Docker/" title="Docker">Docker<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vue/" title="Vue">Vue<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html5/" title="Html5">Html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/webpack/" title="webpack">webpack<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/包管理/" title="包管理">包管理<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/模块化/" title="模块化">模块化<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,110laile. <br>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2020 
+		
+		<a href="/about" target="_blank" title="110laile">110laile</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
