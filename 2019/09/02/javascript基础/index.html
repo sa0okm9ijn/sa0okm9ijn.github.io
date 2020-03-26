@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/09/02/JavaScript基础/2019-11-04_054335.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/02/JavaScript基础/2019-11-04_060052.png">
 <meta property="og:image" content="http://yoursite.com/2019/09/02/JavaScript基础/2019-11-04_061721.png">
-<meta property="og:updated_time" content="2020-01-13T10:50:28.667Z">
+<meta property="og:updated_time" content="2020-03-16T14:40:38.614Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript基础">
 <meta name="twitter:description" content="JavaScript ( JS ) 是一种具有函数优先的轻量级，解释型或即时编译型的编程语言。虽然它是作为开发Web 页面的脚本语言而出名的，但是它也被用到了很多非浏览器环境中，例如 Node.js、 Apache CouchDB 和 Adobe Acrobat。JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式（如函数式编程）风格。">
@@ -827,12 +827,12 @@
 <h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>默认情况下,我们有一个函数为A，那么对象<code>var a = new A();a.__proto__.__proto__.__proto__</code>如此构成一条链条,称为原型链</p>
 <p>特殊点：</p>
 <ol>
-<li>Function的<strong>proto</strong>指向自身的prototype</li>
-<li>Object的prototype的<strong>proto</strong>指向null</li>
+<li>Function的<code>__proto__</code>指向自身的prototype</li>
+<li>Object的prototype的<code>__proto__</code>指向null</li>
 </ol>
 <p><img src="/2019/09/02/JavaScript基础/6.jpg" alt></p>
 <h2 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">User.prototype.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> u1 = <span class="keyword">new</span> User();</span><br><span class="line"><span class="keyword">var</span> u2 = <span class="keyword">new</span> User();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(u1.sayHello === u2.sayHello); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(User.prototype.constructor); <span class="comment">//User function</span></span><br><span class="line"><span class="built_in">console</span>.log(User.prototype === <span class="built_in">Function</span>.prototype); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(User.__proto__ === <span class="built_in">Function</span>.prototype); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(User.__proto__ === <span class="built_in">Function</span>.__proto__); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(u1.__proto__ === u2.__proto__);  <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(u1.__proto__ === User.__proto__); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.__proto__ === <span class="built_in">Object</span>.__proto__);<span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.__proto__ === <span class="built_in">Object</span>.prototype.__proto__);<span class="comment">//false </span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.__proto__ === <span class="built_in">Object</span>.prototype); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<h1 id="原型链的应用"><a href="#原型链的应用" class="headerlink" title="原型链的应用"></a>原型链的应用</h1><h2 id="基础方法"><a href="#基础方法" class="headerlink" title="基础方法"></a>基础方法</h2><p>W3C不推荐直接使用系统成员<strong>proto</strong>,会有性能上的损失</p>
+<h1 id="原型链的应用"><a href="#原型链的应用" class="headerlink" title="原型链的应用"></a>原型链的应用</h1><h2 id="基础方法"><a href="#基础方法" class="headerlink" title="基础方法"></a>基础方法</h2><p>W3C不推荐直接使用系统成员<code>__proto__</code>,会有性能上的损失</p>
 <p>关于静态方法和实例方法</p>
 <ol>
 <li>静态方法</li>
@@ -1036,7 +1036,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/NET/" title=".NET">.NET<sup>9</sup></a></li>
+			<li><a href="/categories/NET/" title=".NET">.NET<sup>10</sup></a></li>
 		  
 		
 		  
@@ -1068,7 +1068,7 @@
 		  
 		
 		  
-			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>41</sup></a></li>
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>40</sup></a></li>
 		  
 		
 		  
@@ -1125,7 +1125,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>41</sup></a></li>
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>40</sup></a></li>
 			
 		
 			
@@ -1181,15 +1181,7 @@
 			
 		
 			
-				<li><a href="/tags/webpack/" title="webpack">webpack<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/包管理/" title="包管理">包管理<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
 			
 		
 			
@@ -1197,7 +1189,15 @@
 			
 		
 			
+				<li><a href="/tags/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NET-FrameWork基础知识/" title=".NET FrameWork基础知识">.NET FrameWork基础知识<sup>1</sup></a></li>
 			
 		
 			
