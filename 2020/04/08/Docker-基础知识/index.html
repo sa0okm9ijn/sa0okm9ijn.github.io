@@ -1,0 +1,719 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  
+    <title>Docker-基础知识 | 110laile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="110laile">
+    
+
+    
+    <meta name="description" content="前言Docker翻译过来是码头工人的意思.早期的码头上分为码头、码头工人、货物、运输工具.由于货物的多样性,有时候并不能放到一起运输,这时候就得增加运输工具来运输.后来就有了集装箱的出现.解决了货物不能一起运输的难题.对我们Docker有了字面上的理解我们再回到我们软件.  单机时代  比如我们有一个购物网站.分为商品服务、订单服务、支付服务等三大块.商品服务是由java开发的,订单服务是由pyt">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker-基础知识">
+<meta property="og:url" content="http://yoursite.com/2020/04/08/Docker-基础知识/index.html">
+<meta property="og:site_name" content="110laile">
+<meta property="og:description" content="前言Docker翻译过来是码头工人的意思.早期的码头上分为码头、码头工人、货物、运输工具.由于货物的多样性,有时候并不能放到一起运输,这时候就得增加运输工具来运输.后来就有了集装箱的出现.解决了货物不能一起运输的难题.对我们Docker有了字面上的理解我们再回到我们软件.  单机时代  比如我们有一个购物网站.分为商品服务、订单服务、支付服务等三大块.商品服务是由java开发的,订单服务是由pyt">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2020/04/08/Docker-基础知识/a.png">
+<meta property="og:image" content="http://yoursite.com/2020/04/08/Docker-基础知识/b.jfif">
+<meta property="og:updated_time" content="2020-04-08T14:16:22.563Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker-基础知识">
+<meta name="twitter:description" content="前言Docker翻译过来是码头工人的意思.早期的码头上分为码头、码头工人、货物、运输工具.由于货物的多样性,有时候并不能放到一起运输,这时候就得增加运输工具来运输.后来就有了集装箱的出现.解决了货物不能一起运输的难题.对我们Docker有了字面上的理解我们再回到我们软件.  单机时代  比如我们有一个购物网站.分为商品服务、订单服务、支付服务等三大块.商品服务是由java开发的,订单服务是由pyt">
+<meta name="twitter:image" content="http://yoursite.com/2020/04/08/Docker-基础知识/a.png">
+
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="110laile" title="110laile"></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="110laile">110laile</a></h1>
+				<h2 class="blog-motto">个人技术博客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索">
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</ul></nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2020/04/08/Docker-基础知识/" title="Docker-基础知识" itemprop="url">Docker-基础知识</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="110laile" target="_blank" itemprop="author">110laile</a>
+		
+  </p><p class="article-time">
+    <time datetime="2020-04-08T02:09:57.000Z" itemprop="datePublished"> 发表于 2020-04-08</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker安装"><span class="toc-number">2.</span> <span class="toc-text">Docker安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker基本操作"><span class="toc-number">3.</span> <span class="toc-text">Docker基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker-管理命令"><span class="toc-number">4.</span> <span class="toc-text">Docker 管理命令</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><code>Docker</code>翻译过来是码头工人的意思.早期的码头上分为码头、码头工人、货物、运输工具.由于货物的多样性,有时候并不能放到一起运输,这时候就得增加运输工具来运输.后来就有了<code>集装箱</code>的出现.解决了货物不能一起运输的难题.对我们<code>Docker</code>有了字面上的理解我们再回到我们软件.</p>
+<ol>
+<li>单机时代</li>
+</ol>
+<p>比如我们有一个购物网站.分为商品服务、订单服务、支付服务等三大块.商品服务是由java开发的,订单服务是由python开发的,支付服务是由.Net开发的,部署在同一台电脑上,很容易造成环境冲突、端口冲突等问题.</p>
+<ol start="2">
+<li>虚拟机时代</li>
+</ol>
+<p>我们可以利用三个虚拟机分别部署上坪服务、订单服务、支付问题.由虚拟机管理工具对虚拟机进行管理.解决了端口冲突和环境冲突的问题.但是虚拟机耗费资源硬件,配置和启动耗时.</p>
+<ol start="3">
+<li>容器时代</li>
+</ol>
+<p>Docker 使用客户端-服务器 (C/S) 架构模式，使用远程API来管理和创建Docker容器。Docker 容器通过 Docker 镜像来创建。容器与镜像的关系类似于面向对象编程中的对象与类</p>
+<p>Docker采用 C/S架构,Docker daemon 作为服务端接受来自客户的请求，并处理这些请求（创建、运行、分发容器）。 客户端和服务端既可以运行在一个机器上，也可通过 socket 或者RESTful API 来进行通信。</p>
+<p>Docker daemon 一般在宿主主机后台运行，等待接收来自客户端的消息。 Docker 客户端则为用户提供一系列可执行命令，用户用这些命令实现跟 Docker daemon 交互</p>
+<p><img src="/2020/04/08/Docker-基础知识/a.png" alt></p>
+<p>一个完整的<code>Docker</code>由以下几个部分组成:</p>
+<ul>
+<li><strong>DockerClient客户端</strong></li>
+<li><strong>Docker Daemon守护进程</strong></li>
+<li><strong>容器:</strong>集装箱,相当于我们面向对象中的对象</li>
+<li><strong>镜像:</strong>集装箱模板,相当用户我们面向对象中的类</li>
+<li><strong>仓库:</strong>码头,相当于我们面向对象中的程序集,用来存储镜像</li>
+</ul>
+<p><img src="/2020/04/08/Docker-基础知识/b.jfif" alt></p>
+<p><strong>总结</strong>:</p>
+<ol>
+<li>docker 是一个开源的应用容器引擎,</li>
+<li>docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的镜像中,然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。</li>
+<li>容器之间不会有任何接口冲突问题,更重要的是容器性能开销极低</li>
+</ol>
+<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><h1 id="Docker基本操作"><a href="#Docker基本操作" class="headerlink" title="Docker基本操作"></a>Docker基本操作</h1><ol>
+<li>启动</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service docker start</span><br></pre></td></tr></table></figure>
+<ol>
+<li>重启</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service docker restart</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>版本</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>运行状态</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status docker</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>安装目录</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /</span><br><span class="line">cd /var/lib/docker</span><br></pre></td></tr></table></figure>
+<h1 id="Docker-管理命令"><a href="#Docker-管理命令" class="headerlink" title="Docker 管理命令"></a>Docker 管理命令</h1><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>builder</td>
+<td>Manage Builds 管理构建</td>
+</tr>
+<tr>
+<td>config</td>
+<td>Manage Docker configs 管理配置</td>
+</tr>
+<tr>
+<td>container</td>
+<td>Manage containers 管理容器</td>
+</tr>
+<tr>
+<td>context</td>
+<td>Manage contexts 管理上下文</td>
+</tr>
+<tr>
+<td>engine</td>
+<td>Manage the docker engine 管理引擎</td>
+</tr>
+<tr>
+<td>image</td>
+<td>Manage images 管理镜像</td>
+</tr>
+<tr>
+<td>network</td>
+<td>Manage networks 管理网络</td>
+</tr>
+<tr>
+<td>node</td>
+<td>Manage Swarm nodes 管理节点(集群)</td>
+</tr>
+<tr>
+<td>plugin</td>
+<td>Manage plugins 管理插件</td>
+</tr>
+<tr>
+<td>secret</td>
+<td>Manage Docker secrets 管理密钥</td>
+</tr>
+<tr>
+<td>service</td>
+<td>Manage services 管理服务</td>
+</tr>
+<tr>
+<td>stack</td>
+<td>Manage Docker stacks 管理</td>
+</tr>
+<tr>
+<td>swarm</td>
+<td>Manage Swarm 管理集群</td>
+</tr>
+<tr>
+<td>system</td>
+<td>Manage Docker 管理系统</td>
+</tr>
+<tr>
+<td>trust</td>
+<td>Manage trust on Docker images 管理信任</td>
+</tr>
+<tr>
+<td>volume</td>
+<td>Manage volumes 管理数据挂载(数据持久化 === 永久保存)</td>
+</tr>
+</tbody>
+</table>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Docker/">Docker</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Docker/">Docker</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2020/04/08/Docker-基础知识/" data-title="Docker-基础知识 | 110laile" data-tsina class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2020/03/31/JavaScript-React基础知识/" title="JavaScript-React基础知识">
+ <strong>下一篇：</strong><br> 
+ <span>JavaScript-React基础知识
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker安装"><span class="toc-number">2.</span> <span class="toc-text">Docker安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker基本操作"><span class="toc-number">3.</span> <span class="toc-text">Docker基本操作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Docker-管理命令"><span class="toc-number">4.</span> <span class="toc-text">Docker 管理命令</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/NET/" title=".NET">.NET<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/NETCore/" title=".NETCore">.NETCore<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Cmd/" title="Cmd">Cmd<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Css/" title="Css">Css<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Docker/" title="Docker">Docker<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Emmet/" title="Emmet">Emmet<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Git/" title="Git">Git<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/HTML/" title="HTML">HTML<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>41</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Python/" title="Python">Python<sup>13</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Regex/" title="Regex">Regex<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/VisualStudio2017/" title="VisualStudio2017">VisualStudio2017<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Vmware/" title="Vmware">Vmware<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Wpf/" title="Wpf">Wpf<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/css/" title="css">css<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/前端框架/" title="前端框架">前端框架<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/算法/" title="算法">算法<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>40</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python-django/" title="Python django">Python django<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html/" title="Html">Html<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Python/" title="Python">Python<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NET-Core简易入门/" title=".NET Core简易入门">.NET Core简易入门<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/C/" title="C#">C#<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Docker/" title="Docker">Docker<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Mysql/" title="Mysql">Mysql<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/DevExpress/" title="DevExpress">DevExpress<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Css/" title="Css">Css<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/算法/" title="算法">算法<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Vue/" title="Vue">Vue<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/React/" title="React">React<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Html5/" title="Html5">Html5<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/模块化/" title="模块化">模块化<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/包管理/" title="包管理">包管理<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NET-FrameWork基础知识/" title=".NET FrameWork基础知识">.NET FrameWork基础知识<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer">
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello ,110laile. <br>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2020 
+		
+		<a href="/about" target="_blank" title="110laile">110laile</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
