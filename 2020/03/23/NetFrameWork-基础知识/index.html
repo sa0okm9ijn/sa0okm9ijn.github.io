@@ -21,7 +21,8 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2020/03/23/NetFrameWork-基础知识/1.png">
 <meta property="og:image" content="http://yoursite.com/2020/03/23/NetFrameWork-基础知识/2.png">
-<meta property="og:updated_time" content="2020-03-24T05:35:13.758Z">
+<meta property="og:image" content="http://yoursite.com/2020/03/23/NetFrameWork-基础知识/3.png">
+<meta property="og:updated_time" content="2020-06-16T11:07:44.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NetFrameWork-基础知识">
 <meta name="twitter:description" content="平台介绍我们先介绍下.NetFrameWork  最下层蓝色部分是.NET Framework的基础，也是所有应用软件的基础。.NET Framework不是凭空出来的，实际上API，COM+，和一些相关驱动依然是它的基石。.NET Framework只不过是对这些前辈们进行了系统的封装和扩充，在这个过程中，吸取了Java框架的很多经验。 黄色部分就是.Net给我们封装好的可以调用的API了.如可">
@@ -99,7 +100,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#平台介绍"><span class="toc-number">1.</span> <span class="toc-text">平台介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">2.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数值型"><span class="toc-number">2.1.</span> <span class="toc-text">数值型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点型"><span class="toc-number">2.2.</span> <span class="toc-text">浮点型</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#平台介绍"><span class="toc-number">1.</span> <span class="toc-text">平台介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">2.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数值型"><span class="toc-number">2.1.</span> <span class="toc-text">数值型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点型"><span class="toc-number">2.2.</span> <span class="toc-text">浮点型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#专题介绍"><span class="toc-number">3.</span> <span class="toc-text">专题介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Generic-泛型"><span class="toc-number">3.1.</span> <span class="toc-text">Generic(泛型)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reflection-反射"><span class="toc-number">3.2.</span> <span class="toc-text">Reflection(反射)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向对象编程"><span class="toc-number">3.3.</span> <span class="toc-text">面向对象编程</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -119,7 +120,8 @@
 <p><img src="/2020/03/23/NetFrameWork-基础知识/2.png" alt></p>
 <p>CLR:微软的CLI的实现被称之为CLR;</p>
 <p>CLR中包含的CTS、CLS、CIL、VES等都是为了实现CLI</p>
-<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="数值型"><a href="#数值型" class="headerlink" title="数值型"></a>数值型</h3><ul>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="数值型"><a href="#数值型" class="headerlink" title="数值型"></a>数值型</h3><p>8位:8bit,1byte就是8bit.如:255转换位2进制就是<code>1111 1111</code></p>
+<ul>
 <li>byte 无符号8位(指的转换为二进制的位数)整型,0-255</li>
 <li>sbyte 有符号8位整型 -128-127</li>
 <li>short 16位</li>
@@ -134,6 +136,118 @@
 <li>double 双精度</li>
 <li>decimal 专用于货币</li>
 </ul>
+<h2 id="专题介绍"><a href="#专题介绍" class="headerlink" title="专题介绍"></a>专题介绍</h2><h3 id="Generic-泛型"><a href="#Generic-泛型" class="headerlink" title="Generic(泛型)"></a>Generic(泛型)</h3><p>泛型（generic）是C#语言2.0和通用语言运行时（CLR）的一个新特性。泛型为.NET框架引入了类型参数（type parameters）的概念。类型参数使得设计类和方法时，不必确定一个或多个具体参数，具体参数可延迟到客户代码中声明、实现。这意味着使用泛型的类型参数T，写一个类<code>MyList&lt;T&gt;</code>，客户代码可以这样调用：<code>MyList&lt;int&gt;</code>， <code>MyList&lt;string&gt;</code>或 <code>MyList&lt;MyClass&gt;</code>。这避免了运行时类型转换或装箱操作的代价和风险。</p>
+<p><strong>泛型的好处</strong>:</p>
+<ol>
+<li>复用性:如,干同一件事的方法,因为类型不同可以用泛型进行封装.</li>
+<li>类型安全:如,通过泛型申明的方法,类型不匹配,编译器就会报错.</li>
+<li>高效率:泛型方法和普通方法效率基本一致.不存在装箱和拆箱的操作.</li>
+</ol>
+<p><strong>泛型的原理</strong>:泛型不是一个简单的语法糖，是框架升级支持的.编译器在编译代码的时候会用占位符<strong>`</strong>表达类型参数<br><code>·1</code>或<code>·2</code>表示有几个类型参数,运行的时候,类型是确定的.然后再把占位符替换掉.</p>
+<ol>
+<li><p>泛型方法<br>为了一个方法满足不同的类型的需求,一个方法完成多实体的查询,一个方法完成不同的类型的数据展示.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">int iValue = 123;</span><br><span class="line">string sValue = &quot;456&quot;;</span><br><span class="line">DateTime dtValue = DateTime.Now;</span><br><span class="line">object oValue = &quot;678&quot;;</span><br><span class="line"></span><br><span class="line">Console.WriteLine(&quot;***********************Common***********************&quot;);</span><br><span class="line">CommonMethod.ShowInt(iValue);</span><br><span class="line">CommonMethod.ShowString(sValue);</span><br><span class="line">CommonMethod.ShowDateTime(dtValue);</span><br><span class="line"></span><br><span class="line">Console.WriteLine(&quot;***********************Object***********************&quot;);</span><br><span class="line">CommonMethod.ShowObject(oValue);</span><br><span class="line">CommonMethod.ShowObject(iValue);</span><br><span class="line">CommonMethod.ShowObject(sValue);</span><br><span class="line">CommonMethod.ShowObject(dtValue);</span><br><span class="line"></span><br><span class="line">Console.WriteLine(&quot;***********************Generic***********************&quot;);</span><br><span class="line">CommonMethod.Show&lt;int&gt;(iValue);</span><br><span class="line">CommonMethod.Show&lt;string&gt;(sValue);</span><br><span class="line">CommonMethod.Show&lt;DateTime&gt;(dtValue);</span><br><span class="line">CommonMethod.Show&lt;object&gt;(oValue);</span><br><span class="line"></span><br><span class="line">//泛型方法的声明</span><br><span class="line">public static void Show&lt;T&gt;(T tParameter)</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;This is &#123;0&#125;,parameter=&#123;1&#125;,type=&#123;2&#125;&quot;,</span><br><span class="line">        typeof(CommonMethod), tParameter.GetType().Name, tParameter);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>泛型类<br>一个类，满足不同类型的需求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public class GenericClass&lt;T&gt;</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>泛型接口</p>
+</li>
+</ol>
+<p>一个接口，满足不同类型的需求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface GenericInterface&lt;S&gt;</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>泛型委托</li>
+</ol>
+<p>一个委托，满足不同类型的需求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public delegate void Do&lt;T&gt;();</span><br></pre></td></tr></table></figure></p>
+<ol start="5">
+<li><p>泛型约束<br>一个约束类型是一种基类约束，它通知编译器，只有这个类型的对象或从这个类型派生的对象，可被用作类型参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class GenericClass&lt;T&gt; where T : ISports</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public T GetT&lt;T, S&gt;()</span><br><span class="line">    //where T : class//引用类型约束</span><br><span class="line">    //where T : struct//值类型</span><br><span class="line">    where T : new()//无参数构造函数</span><br><span class="line">    where S : class</span><br><span class="line">&#123;</span><br><span class="line">    //return null;</span><br><span class="line">    //return default(T);//default是个关键字，会根据T的类型去获得一个默认值</span><br><span class="line">    return new T();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>协变、逆变<br>所谓协变逆变，都是跟泛型相关，只能放在接口或者委托的泛型参数前面,out 协变covariant,修饰返回值;in 逆变contravariant 修饰传入参数 </p>
+</li>
+</ol>
+<p>协变：就是让右边可以用子类，让泛型用起来更方便</p>
+<p>逆变:就是让右边可以用父类，让泛型用起来更方便</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">IMyList&lt;Sparrow, Bird&gt; myList1 = new MyList&lt;Sparrow, Bird&gt;();</span><br><span class="line">IMyList&lt;Sparrow, Bird&gt; myList2 = new MyList&lt;Sparrow, Sparrow&gt;();//协变</span><br><span class="line">IMyList&lt;Sparrow, Bird&gt; myList3 = new MyList&lt;Bird, Bird&gt;();//逆变</span><br><span class="line">IMyList&lt;Sparrow, Bird&gt; myList4 = new MyList&lt;Bird, Sparrow&gt;();//协变+逆变</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public interface IMyList&lt;in inT, out outT&gt;</span><br><span class="line">&#123;</span><br><span class="line">    void Show(inT t);</span><br><span class="line">    outT Get();</span><br><span class="line">    outT Do(inT t);</span><br><span class="line"></span><br><span class="line">    ////out 只能是返回值   in只能是参数</span><br><span class="line">    //void Show1(outT t);</span><br><span class="line">    //inT Get1();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class MyList&lt;T1, T2&gt; : IMyList&lt;T1, T2&gt;</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    public void Show(T1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(t.GetType().Name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public T2 Get()</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(typeof(T2).Name);</span><br><span class="line">        return default(T2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public T2 Do(T1 t)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(t.GetType().Name);</span><br><span class="line">        Console.WriteLine(typeof(T2).Name);</span><br><span class="line">        return default(T2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>泛型缓存</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 每个不同的T，都会生成一份不同的副本</span><br><span class="line">/// 适合不同类型，需要缓存一份数据的场景，效率高</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;typeparam name=&quot;T&quot;&gt;&lt;/typeparam&gt;</span><br><span class="line">public class GenericCache&lt;T&gt;</span><br><span class="line">&#123;</span><br><span class="line">    static GenericCache()</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;This is GenericCache 静态构造函数&quot;);</span><br><span class="line">        _TypeTime = string.Format(&quot;&#123;0&#125;_&#123;1&#125;&quot;, typeof(T).FullName, DateTime.Now.ToString(&quot;yyyyMMddHHmmss.fff&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static string _TypeTime = &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    public static string GetCache()</span><br><span class="line">    &#123;</span><br><span class="line">        return _TypeTime;</span><br><span class="line">    &#125;</span><br><span class="line">    //common&lt;int&gt;(1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Reflection-反射"><a href="#Reflection-反射" class="headerlink" title="Reflection(反射)"></a>Reflection(反射)</h3><p><img src="/2020/03/23/NetFrameWork-基础知识/3.png" alt><br>反射Reflection:System.Reflection，是.Net Framework提供的一个帮助类库，可以读取并使用metadata</p>
+<ol>
+<li><p>反射加载dll</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Assembly assembly = Assembly.Load(&quot;Ruanmou.DB.MySql&quot;);</span><br><span class="line">//1 动态加载 一个完整dll名称不需要后缀  从exe所在的路径进行查找</span><br><span class="line">Assembly assembly1 = Assembly.LoadFile(@&quot;D:\ruanmou\online12\20181212Advanced12Course2Reflection\MyReflection\MyReflection\bin\Debug\Ruanmou.DB.MySql.dll&quot;);//完整路径</span><br><span class="line">Assembly assembly2 = Assembly.LoadFrom(&quot;Ruanmou.DB.MySql.dll&quot;);//当前路径</span><br><span class="line">Assembly assembly3 = Assembly.LoadFrom(@&quot;D:\ruanmou\online12\20181212Advanced12Course2Reflection\MyReflection\MyReflection\bin\Debug\Ruanmou.DB.MySql.dll&quot;);//当前路径</span><br><span class="line"></span><br><span class="line">foreach (var type in assembly.GetTypes())</span><br><span class="line">&#123;</span><br><span class="line">    //type.IsGenericType</span><br><span class="line">    Console.WriteLine(type.Name);</span><br><span class="line">    foreach (var method in type.GetMethods())</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(method.Name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>反射创建对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Assembly assembly = Assembly.Load(&quot;Ruanmou.DB.MySql&quot;);//1 动态加载</span><br><span class="line">Type type = assembly.GetType(&quot;Ruanmou.DB.MySql.MySqlHelper&quot;);//2 获取类型 完整类型名称</span><br><span class="line">dynamic dDBHelper= Activator.CreateInstance(type);</span><br><span class="line">dDBHelper.Query();//dynamic编译器不检查，，运行时才检查</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用构造函数</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Assembly assembly = Assembly.Load(&quot;Ruanmou.DB.SqlServer&quot;);</span><br><span class="line">Type type = assembly.GetType(&quot;Ruanmou.DB.SqlServer.ReflectionTest&quot;);</span><br><span class="line">foreach (ConstructorInfo ctor in type.GetConstructors())</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(ctor.Name);</span><br><span class="line">    foreach (var parameter in ctor.GetParameters())</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(parameter.ParameterType);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">object oTest1 = Activator.CreateInstance(type);</span><br><span class="line">object oTest2 = Activator.CreateInstance(type, new object[] &#123; 123 &#125;);</span><br><span class="line">object oTest3 = Activator.CreateInstance(type, new object[] &#123; &quot;陌殇&quot; &#125;);</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>破坏单例</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//反射破坏单例---就是发射调用私有构造函数</span><br><span class="line">Assembly assembly = Assembly.Load(&quot;Ruanmou.DB.SqlServer&quot;);</span><br><span class="line">Type type = assembly.GetType(&quot;Ruanmou.DB.SqlServer.Singleton&quot;);</span><br><span class="line">Singleton singletonA = (Singleton)Activator.CreateInstance(type, true);</span><br><span class="line">Singleton singletonB = (Singleton)Activator.CreateInstance(type, true);</span><br><span class="line">Singleton singletonC = (Singleton)Activator.CreateInstance(type, true);</span><br><span class="line">Singleton singletonD = (Singleton)Activator.CreateInstance(type, true);</span><br><span class="line">Console.WriteLine($&quot;&#123;object.ReferenceEquals(singletonA, singletonD)&#125;&quot;);</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li><p>反射创建泛型类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Assembly assembly = Assembly.Load(&quot;Ruanmou.DB.SqlServer&quot;);</span><br><span class="line">Type type = assembly.GetType(&quot;Ruanmou.DB.SqlServer.GenericClass`3&quot;);</span><br><span class="line">//GenericClass&lt;string, int, DateTime&gt; genericClass = new GenericClass&lt;string, int, DateTime&gt;();</span><br><span class="line">//object oGeneric = Activator.CreateInstance(type);</span><br><span class="line">Type typeMake = type.MakeGenericType(new Type[] &#123; typeof(string), typeof(int), typeof(DateTime) &#125;);</span><br><span class="line">object oGeneric = Activator.CreateInstance(typeMake);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>反射调用方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Console.WriteLine(&quot;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&quot;);</span><br><span class="line">Assembly assembly = Assembly.Load(&quot;Ruanmou.DB.SqlServer&quot;);</span><br><span class="line">Type type = assembly.GetType(&quot;Ruanmou.DB.SqlServer.ReflectionTest&quot;);</span><br><span class="line">object oTest = Activator.CreateInstance(type);</span><br><span class="line">&#123;</span><br><span class="line">    MethodInfo method = type.GetMethod(&quot;Show1&quot;);</span><br><span class="line">    //if()</span><br><span class="line">    method.Invoke(oTest, null);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>反射调用私有方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    //调用私有方法</span><br><span class="line">    Console.WriteLine(&quot;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;私有方法&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&quot;);</span><br><span class="line">    Assembly assembly = Assembly.Load(&quot;Ruanmou.DB.SqlServer&quot;);</span><br><span class="line">    Type type = assembly.GetType(&quot;Ruanmou.DB.SqlServer.ReflectionTest&quot;);</span><br><span class="line">    object oTest = Activator.CreateInstance(type);</span><br><span class="line">    var method = type.GetMethod(&quot;Show4&quot;, BindingFlags.Instance | BindingFlags.NonPublic);</span><br><span class="line">    method.Invoke(oTest, new object[] &#123; &quot;我是老王&quot; &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>反射调用泛型方法</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;********************GenericMethod********************&quot;);</span><br><span class="line">    Assembly assembly = Assembly.Load(&quot;Ruanmou.DB.SqlServer&quot;);</span><br><span class="line">    Type type = assembly.GetType(&quot;Ruanmou.DB.SqlServer.GenericMethod&quot;);</span><br><span class="line">    object oGeneric = Activator.CreateInstance(type);</span><br><span class="line">    //foreach (var item in type.GetMethods())</span><br><span class="line">    //&#123;</span><br><span class="line">    //    Console.WriteLine(item.Name);</span><br><span class="line">    //&#125;</span><br><span class="line">    MethodInfo method = type.GetMethod(&quot;Show&quot;);</span><br><span class="line">    var methodNew = method.MakeGenericMethod(new Type[] &#123; typeof(int), typeof(string), typeof(DateTime) &#125;);</span><br><span class="line">    object oReturn = methodNew.Invoke(oGeneric, new object[] &#123; 123, &quot;董小姐&quot;, DateTime.Now &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="9">
+<li>反射获取(设置)字段和属性</li>
+</ol>
+<p>sql的动态生成案例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Type type = typeof(People);</span><br><span class="line">object oPeople = Activator.CreateInstance(type);</span><br><span class="line">foreach (var prop in type.GetProperties())</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine($&quot;&#123;type.Name&#125;.&#123;prop.Name&#125;=&#123;prop.GetValue(oPeople)&#125;&quot;);</span><br><span class="line">    if (prop.Name.Equals(&quot;Id&quot;))</span><br><span class="line">    &#123;</span><br><span class="line">        prop.SetValue(oPeople, 234);</span><br><span class="line">    &#125;</span><br><span class="line">    else if (prop.Name.Equals(&quot;Name&quot;))</span><br><span class="line">    &#123;</span><br><span class="line">        prop.SetValue(oPeople, &quot;饿了么&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine($&quot;&#123;type.Name&#125;.&#123;prop.Name&#125;=&#123;prop.GetValue(oPeople)&#125;&quot;);</span><br><span class="line">&#125;</span><br><span class="line">foreach (var field in type.GetFields())</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine($&quot;&#123;type.Name&#125;.&#123;field.Name&#125;=&#123;field.GetValue(oPeople)&#125;&quot;);</span><br><span class="line">    if (field.Name.Equals(&quot;Description&quot;))</span><br><span class="line">    &#123;</span><br><span class="line">        field.SetValue(oPeople, &quot;并不是外卖，也不是真的饿了&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine($&quot;&#123;type.Name&#125;.&#123;field.Name&#125;=&#123;field.GetValue(oPeople)&#125;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="10">
+<li>性能测试</li>
+</ol>
+<p>启动加载好,后面运行就很快了,不要在循环中去反射,最好初始化反射好.</p>
+<ol start="11">
+<li>反射的优点<br>动态  </li>
+<li>反射的缺点<ol>
+<li>使用麻烦</li>
+<li>避开编译器检查</li>
+<li>性能问题！！！(启动加载好,后面运行就很快了)</li>
+</ol>
+</li>
+</ol>
+<h3 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h3><ol>
+<li><p>继承<br>可以通过接口、类、抽象类的方式实现继承.</p>
+<ol>
+<li>抽象方法只可以在抽象类中.</li>
+<li>基类中可以有普通方法、抽象方法、虚方法.</li>
+<li>普通方法由编译时决定，虚方法和抽象方法由运行时决定.</li>
+<li>实例化子类时候,会先调用父类的构造函数,然后在调用子类的构造函数</li>
+<li>sealed类不可以被继承,sealed抽象方法,后续无法实现.</li>
+<li>私有成员无法继承</li>
+</ol>
+</li>
+<li><p>多态</p>
+</li>
+</ol>
+<p>通过继承，一个类可以用作多种类型：可以用作它自己的类型、任何基类型，或者在实现接口时用作任何接口类型。这称为多态性。C# 中的每种类型都是多态的。类型可用作它们自己的类型或用作 Object 实例，因为任何类型都自动将 Object 当作基类型。</p>
+<ol start="3">
+<li>接口和抽象类<ol>
+<li>接口是包含一组虚方法的抽象类型，其中每一种方法都有其名称、参数和返回值。接口方法不能包含任何实现.</li>
+<li>抽象类提供多个派生类共享基类的公共定义，它既可以提供抽象方法，也可以提供非抽象方法。抽象类不能实例化，必须通过继承由派生类实现其抽象方法，因此对抽象类不能使用new关键字，也不能被密封。</li>
+<li>抽象类的出发点应该是代码重用，是为了当父类   is  a</li>
+<li>接口纯粹为了约束，告诉别人一定有什么功能    can  do</li>
+<li>接口放的是不确定的东西，确定的不可以放，比如字段.</li>
+</ol>
+</li>
+</ol>
+<p>### </p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -198,7 +312,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#平台介绍"><span class="toc-number">1.</span> <span class="toc-text">平台介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">2.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数值型"><span class="toc-number">2.1.</span> <span class="toc-text">数值型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点型"><span class="toc-number">2.2.</span> <span class="toc-text">浮点型</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#平台介绍"><span class="toc-number">1.</span> <span class="toc-text">平台介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型"><span class="toc-number">2.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数值型"><span class="toc-number">2.1.</span> <span class="toc-text">数值型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浮点型"><span class="toc-number">2.2.</span> <span class="toc-text">浮点型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#专题介绍"><span class="toc-number">3.</span> <span class="toc-text">专题介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Generic-泛型"><span class="toc-number">3.1.</span> <span class="toc-text">Generic(泛型)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reflection-反射"><span class="toc-number">3.2.</span> <span class="toc-text">Reflection(反射)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#面向对象编程"><span class="toc-number">3.3.</span> <span class="toc-text">面向对象编程</span></a></li></ol></li></ol>
  
   </div>
 
@@ -348,6 +462,10 @@
 			
 		
 			
+				<li><a href="/tags/Vue/" title="Vue">Vue<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/Css/" title="Css">Css<sup>2</sup></a></li>
 			
 		
@@ -356,19 +474,15 @@
 			
 		
 			
-				<li><a href="/tags/Vue/" title="Vue">Vue<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/React/" title="React">React<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/Html5/" title="Html5">Html5<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/JQuery/" title="JQuery">JQuery<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/React/" title="React">React<sup>1</sup></a></li>
 			
 		
 			
@@ -384,7 +498,7 @@
 			
 		
 			
-				<li><a href="/tags/NET-FrameWork基础知识/" title=".NET FrameWork基础知识">.NET FrameWork基础知识<sup>1</sup></a></li>
+				<li><a href="/tags/NETCore基础知识/" title=".NETCore基础知识">.NETCore基础知识<sup>1</sup></a></li>
 			
 		
 		</ul>
